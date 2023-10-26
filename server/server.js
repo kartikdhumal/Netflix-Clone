@@ -13,11 +13,23 @@ app.use(cors({ origin: '*' }));
 app.use(cors());
 const PORT = 8000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/netflixapp').then(()=> {
-    console.log('Connection successfull');
+const username = 'kartikdhumal';
+const password = 'guddupandit2023';
+const clusterName = 'cluster0.dtpx5rn';
+const databaseName = 'netflixapp';
+
+// MongoDB Atlas connection URI
+const mongoDBURI = `mongodb+srv://${username}:${password}@${clusterName}.mongodb.net/${databaseName}?retryWrites=true&w=majority`;
+
+mongoose.connect(mongoDBURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connection successful');
 }).catch((error) => {
-    console.log(`The error is ${error}`);
+  console.log(`The error is ${error}`);
 });
+
 
 app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
