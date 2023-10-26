@@ -35,6 +35,11 @@ app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
 })
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+  console.log("I am here");
+});
+
 app.post('/users' , async (req,res) => {
     try{
       const bodyData = req.body;
