@@ -26,7 +26,7 @@ function Login() {
            if(email == "" && password== "")
            { alert("Please enter your Email or Password"); }
             else{
-            const response = await Axios.post('http://localhost:8000/login', {
+            const response = await Axios.post('netflix-kartikdhumal.vercel.app/login', {
               email: email,
               password: password
             });
