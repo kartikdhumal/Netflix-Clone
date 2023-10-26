@@ -60,17 +60,6 @@ app.get('/finduser',async (req,res) => {
       }
 })
 
-app.get('/finduser',async (req,res) => {
-  try{
-      const userData = await user.find().sort({ _id: -1 })
-      .exec();
-      res.send(userData);
-    }
-     catch{
-     console.log(error);
-    }
-})
-
 app.delete('/deleteuser/:id' , async (req,res)=>{
     try{
        const id = req.params.id;
