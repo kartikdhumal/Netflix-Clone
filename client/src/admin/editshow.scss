@@ -1,0 +1,120 @@
+
+
+:root {
+  --main-color: #0b0b0b;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+@mixin tablet {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin minimobile {
+  @media (max-width: 426px) {
+    @content;
+  }
+}
+.shows{
+    background-color: black !important;
+    height:100vw !important;
+    overflow-y: hidden;
+    color:white;
+    width: auto;
+    padding:5px;
+    @include tablet{
+      height: auto !important;
+    }
+
+    .posterimage{
+      width:100px !important;
+     }  
+    .posteractual , .traileractual , .fullvideoactual{
+      padding:9px 3px;
+        width:100%;
+        margin: 4px 1px;
+        font-size: 15px;
+        background-color:red;
+        font-weight: bold;
+        border-radius:5px;
+        color: white;
+    }
+    .form{
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      .formmy{
+        display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 9px;
+
+
+      input {
+        padding:9px 3px;
+        width:100%;
+        margin: 4px 1px;
+        border-radius:5px;
+        font-size: 15px;
+        &::placeholder {
+          color:black;
+        }
+      }
+      select{
+        width:100%;
+        padding: 9px 3px;
+        border-radius:5px;
+        margin: 4px 1px;
+      }
+
+      button{
+          height: 40px;
+          width:100%;
+          border-radius: 5px;
+          background-color: red;
+          color: white;
+          border: none;
+          font-size: 18px;
+          margin: 4px 1px;
+          font-weight: 500;
+          cursor: pointer;
+      }
+
+      }
+    }
+    .deleteicons{
+        color: red;
+    }
+    h5{
+        color: white;
+        font-size: 28px;
+        padding: 0 15px;
+    }
+      table{
+        width: 100%;
+      }
+      td{
+        box-shadow: 1px 0px 1px 0 white;
+        text-align: center;
+        font-size:18px;
+      }
+    table tr th{
+        font-size:18px;
+        color: #0b0b0b;
+        border: 1px solid white;
+        background-color: white;
+    }
+}
