@@ -16,17 +16,17 @@ function Main() {
   // }, [navigate]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/countAdminUsers')
+    fetch('netflix-kartikdhumal.vercel.app/countAdminUsers')
       .then((response) => response.json())
       .then((data) => setAdminCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('http://localhost:8000/countShows')
+      fetch('netflix-kartikdhumal.vercel.app/countShows')
       .then((response) => response.json())
       .then((data) => setShowCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('http://localhost:8000/countMovies')
+      fetch('netflix-kartikdhumal.vercel.app/countMovies')
       .then((response) => response.json())
       .then((data) => setMovieCount(data.count))
       .catch((error) => console.error(error));
