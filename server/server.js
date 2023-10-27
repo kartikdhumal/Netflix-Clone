@@ -9,7 +9,7 @@ const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
 app.use(cors({
-  origin: ["https://netflix-clone-frontend-taupe.vercel.app"],
+  origin: "*",
   methods: ["POST" , "GET"],
   credentials: true 
 }));
@@ -145,6 +145,7 @@ app.post('/register' , async (req,res) => {
 
 app.post('/login', async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', 'https://netflix-clone-frontend-taupe.vercel.app');
     const { email , password } = req.body;
     const secretkey = '3202tidnapuddug';
     if(!email || !password ){
