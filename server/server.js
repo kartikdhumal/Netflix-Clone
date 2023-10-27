@@ -9,8 +9,10 @@ const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
 app.use(express.json());
-// app.use(cors({ origin: '*' }));
-app.use(cors());
+app.use(cors({
+  origin: 'https://netflix-clone-frontend-taupe.vercel.app',
+}));
+
 const PORT = 8000;
 
 const username = 'kartikdhumal';
