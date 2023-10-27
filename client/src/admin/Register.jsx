@@ -38,7 +38,7 @@ function Register() {
             }
             else{
                 try{
-                    const mydata = await Axios.post('netflix-kartikdhumal.vercel.app/register', {
+                    const mydata = await Axios.post('http://localhost:8000/register', {
                         email: email,
                         password: bcrypt.hashSync(password, 8),
                         isAdmin : isAdmin
