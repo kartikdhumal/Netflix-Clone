@@ -45,7 +45,7 @@ function Login() {
                 navigate('/homepage');
               }
             } else {
-              alert('Login failed: ' + response.data.message);
+              alert('Login failed 1: ' + response.data.message);
             }
           }
           
