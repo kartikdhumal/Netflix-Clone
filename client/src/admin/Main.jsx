@@ -16,17 +16,17 @@ function Main() {
   // }, [navigate]);
 
   useEffect(() => {
-    fetch('netflix-kartikdhumal.vercel.app/countAdminUsers')
+    fetch('netflix-clone-alpha-pearl.vercel.app/countAdminUsers')
       .then((response) => response.json())
       .then((data) => setAdminCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('netflix-kartikdhumal.vercel.app/countShows')
+      fetch('netflix-clone-alpha-pearl.vercel.app/countShows')
       .then((response) => response.json())
       .then((data) => setShowCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('netflix-kartikdhumal.vercel.app/countMovies')
+      fetch('netflix-clone-alpha-pearl.vercel.app/countMovies')
       .then((response) => response.json())
       .then((data) => setMovieCount(data.count))
       .catch((error) => console.error(error));
