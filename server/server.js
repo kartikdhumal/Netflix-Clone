@@ -10,6 +10,8 @@ const Show = require('./models/showModel');
 const app = express();
 app.use(cors({
   origin: ["https://netflix-clone-frontend-taupe.vercel.app"],
+  methods: ["POST" , "GET"],
+  credentials: true 
 }));
 app.use(express.json());
 
