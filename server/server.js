@@ -9,7 +9,7 @@ const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
 app.use(cors({
-  origin: "https://netflix-clone-frontend-taupe.vercel.app"
+  origin: ["https://netflix-clone-frontend-taupe.vercel.app"],
 }));
 app.use(express.json());
 
