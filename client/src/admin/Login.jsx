@@ -26,8 +26,7 @@ function Login() {
            if(email == "" && password== "")
            { alert("Please enter your Email or Password"); }
             else{
-            const response = await Axios.post('https://netflix-clone-frontend-taupe.vercel.app
-login', {
+            const response = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/login', {
               email: email,
               password: password
             });
