@@ -1,17 +1,17 @@
 {
-    "builds":[
-        {
-            "src":"*.js",
-            "use":"@vercel/node"
-        }
-    ],
-    "routes":[
-        {
-            "src":"/(.*)",
-            "dest":"/"
-        }
-    ],
-      "headers": [
+  "builds": [
+    {
+      "src": "*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ],
+  "headers": [
     {
       "source": "/(.*)",
       "headers": [
@@ -22,12 +22,12 @@
       ]
     }
   ],
-     "functions": [
-    "login": [ {
+  "functions": {
+    "login": {
       "maxDuration": 20
-    } ],
-    "register": [ {
+    },
+    "register": {
       "maxDuration": 20
-    } ]
-     ]
+    }
+  }
 }
