@@ -135,7 +135,7 @@ app.post('/register' , async (req,res) => {
     const userData = await user.save();
     const userid = user._id;
     console.log('Registration successful:', userData);
-    res.setHeader('Access-Control-Allow-Origin', '*');
+   // res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({ userData, userid });
   }
   catch(error){
@@ -161,7 +161,7 @@ app.post('/login', async (req, res) => {
     if (!auth) {
       return res.json({message:'Incorrect password or email' }) 
     }
-      res.setHeader('Access-Control-Allow-Origin', '*');
+     // res.setHeader('Access-Control-Allow-Origin', '*');
      const token = jwt.sign({ userid }, secretkey, { expiresIn: '1h' });
      res.status(201).json({ message: "User logged in successfully", success: true , token , userid , isadmin});
   } catch (error) {
