@@ -9,7 +9,7 @@ function Login() {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+     Axios.defaults.withCredentials = true;
     const handleEmail = (event) => {
         const value = event.target.value;
         setEmail(value);
