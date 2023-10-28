@@ -2,9 +2,9 @@
    "version": 2,
    "name": "Netflix Clone",
    "builds": [
-      { "src": "*.js", "use": "@vercel/node" }
+      { "src": "./server.js", "use": "@vercel/node" }
    ],
    "routes": [
-      { "src": "/(*.js)", "dest": "/" }
+      { "src": "/(.*)", "dest": "/" }
    ]
 }
