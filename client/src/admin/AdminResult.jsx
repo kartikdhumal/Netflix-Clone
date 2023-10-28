@@ -34,7 +34,6 @@ function AdminResult() {
         <Route path="/homepage" element={<Home />} />
         <Route path="/editprofile/:id" element={<Editprofile />} />
         <Route path="/users" element={ <Users />} />
-        <Route path="/users/:id"/>
         <Route path="/shows" element={ <Shows />} />
         <Route path="/editshow/:id" element={ <Editshow />} />
         <Route path="/deleteshow/:id" element={ <Deleteshow />} />

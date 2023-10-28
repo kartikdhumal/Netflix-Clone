@@ -27,7 +27,7 @@ function Users() {
   };
 
   const fetchData = () =>
-  { fetch('http://localhost:8000/finduser')
+  { fetch('netflix-kartikdhumal.vercel.app/finduser')
     .then((response) => response.json())
     .then((data) => getUserData(data))
     .catch((error) => console.error(error));
@@ -37,7 +37,7 @@ function Users() {
   },[])
 
   const handleDelete = (recordId) => {
-    Axios.delete(`http://localhost:8000/deleteuser/${recordId}`)
+    Axios.delete(`netflix-kartikdhumal.vercel.app/deleteuser/${recordId}`)
       .then((response) => {
         fetchData();
       })

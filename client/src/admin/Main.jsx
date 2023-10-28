@@ -16,17 +16,17 @@ function Main() {
   // }, [navigate]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/countAdminUsers')
+    fetch('https://netflix-clone-alpha-pearl.vercel.app/countAdminUsers')
       .then((response) => response.json())
       .then((data) => setAdminCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('http://localhost:8000/countShows')
+      fetch('https://netflix-clone-alpha-pearl.vercel.app/countShows')
       .then((response) => response.json())
       .then((data) => setShowCount(data.count))
       .catch((error) => console.error(error));
 
-      fetch('http://localhost:8000/countMovies')
+      fetch('https://netflix-clone-alpha-pearl.vercel.app/countMovies')
       .then((response) => response.json())
       .then((data) => setMovieCount(data.count))
       .catch((error) => console.error(error));

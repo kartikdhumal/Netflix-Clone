@@ -17,22 +17,11 @@ app.use(express.json());
 
 const PORT = 8000;
 
-const username = 'kartikdhumal';
-const password = 'guddupandit2023';
-const clusterName = 'cluster0.dtpx5rn';
-const databaseName = 'netflixapp';
-
-const mongoDBURI = `mongodb+srv://${username}:${password}@cluster0.dtpx5rn.mongodb.net/netflixapp?retryWrites=true&w=majority`;
-
-mongoose.connect(mongoDBURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Connection successful');
+mongoose.connect('mongodb://127.0.0.1:27017/netflixapp').then(()=> {
+    console.log('Connection successfull');
 }).catch((error) => {
   console.log(`The error is ${error}`);
 });
-
 
 app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
