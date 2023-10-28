@@ -24,10 +24,10 @@
   ],
   "functions": {
     "login": {
-      "maxDuration": 20
+      "maxDuration": 30
     },
     "register": {
-      "maxDuration": 20
+      "maxDuration": 30
     }
   }
 }
