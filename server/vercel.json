@@ -23,11 +23,11 @@
     }
   ],
      "functions": [
-    "login": {
+    "login": [ {
       "maxDuration": 20
-    },
-    "register": {
+    } ],
+    "register": [ {
       "maxDuration": 20
-    }
+    } ]
      ]
 }
