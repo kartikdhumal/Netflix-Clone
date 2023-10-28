@@ -9,7 +9,6 @@ function Login() {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const handleEmail = (event) => {
         const value = event.target.value;
         setEmail(value);
@@ -26,7 +25,7 @@ function Login() {
            if(email == "" && password== "")
            { alert("Please enter your Email or Password"); }
             else{
-            const response = await Axios.post('http://localhost:8000/login', {
+            const response = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/login', {
               email: email,
               password: password
             });
@@ -37,20 +36,28 @@ function Login() {
                 alert('Login successful');
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('userid', response.data.userid);
+                  setEmail("");
+                 setPassword("");
                 navigate('/admin');
               }else{
                 alert('Login successful');
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('myuserid', response.data.userid);
+                  setEmail("");
+                  setPassword("");
                 navigate('/homepage');
               }
             } else {
-              alert('Login failed: ' + response.data.message);
+              alert('Something went wrong: ' + response.data.message);
+                setEmail("");
+                setPassword("");
             }
           }
           
           } catch (error) {
-            console.error('Login failed:', error);
+            console.error('Try Again!', error);
+            setEmail("");
+            setPassword("");
           }
       }
       

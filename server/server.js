@@ -8,9 +8,13 @@ var cors = require('cors');
 const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
+app.use(cors({
+  origin: "*",
+  methods: ["POST" , "GET"],
+  credentials: true 
+}));
 app.use(express.json());
-app.use(cors({ origin: '*' }));
-app.use(cors());
+
 const PORT = 8000;
 
 const username = 'kartikdhumal';
@@ -18,8 +22,7 @@ const password = 'guddupandit2023';
 const clusterName = 'cluster0.dtpx5rn';
 const databaseName = 'netflixapp';
 
-// MongoDB Atlas connection URI
-const mongoDBURI = `mongodb+srv://${username}:${password}@${clusterName}.mongodb.net/${databaseName}?retryWrites=true&w=majority`;
+const mongoDBURI = `mongodb+srv://${username}:${password}@cluster0.dtpx5rn.mongodb.net/netflixapp?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoDBURI, {
   useNewUrlParser: true,
@@ -30,9 +33,15 @@ mongoose.connect(mongoDBURI, {
   console.log(`The error is ${error}`);
 });
 
+
 app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
 })
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+  console.log("I am here");
+});
 
 app.post('/users' , async (req,res) => {
     try{
@@ -136,7 +145,6 @@ app.post('/register' , async (req,res) => {
 app.post('/login', async (req, res) => {
   try {
     const { email , password } = req.body;
-    const secretkey = '3202tidnapuddug';
     if(!email || !password ){
       return res.json({message:'All fields are required'})
     }
@@ -150,8 +158,7 @@ app.post('/login', async (req, res) => {
     if (!auth) {
       return res.json({message:'Incorrect password or email' }) 
     }
-     const token = jwt.sign({ userid }, secretkey, { expiresIn: '1h' });
-     res.status(201).json({ message: "User logged in successfully", success: true , token , userid , isadmin});
+     res.status(201).json({ message: "User logged in successfully", success: true ,userid , isadmin});
   } catch (error) {
     console.error(error);
   }

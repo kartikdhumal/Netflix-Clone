@@ -25,7 +25,6 @@ function Register() {
     const handlePassword = (event) => {
         const value = event.target.value;
         setPassword(value);
-        console.log(event.target.name + email +" " +password);
     }
     const handleStart = () => {
         isClicked(true);
@@ -38,7 +37,7 @@ function Register() {
             }
             else{
                 try{
-                    const mydata = await Axios.post('http://localhost:8000/register', {
+                    const mydata = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/register', {
                         email: email,
                         password: bcrypt.hashSync(password, 8),
                         isAdmin : isAdmin
