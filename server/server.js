@@ -23,7 +23,7 @@ const clusterName = 'cluster0.dtpx5rn';
 const databaseName = 'netflixapp';
 
 // MongoDB Atlas connection URI
-const mongoDBURI = `mongodb+srv://${username}:${password}@${clusterName}.mongodb.net/${databaseName}?retryWrites=true&w=majority`;
+const mongoDBURI = `mongodb+srv://${username}:${password}@cluster0.dtpx5rn.mongodb.net/netflixapp?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoDBURI, {
   useNewUrlParser: true,
