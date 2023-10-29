@@ -20,7 +20,7 @@ function Watch() {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8000/watch/${id}`);
+        const response = await Axios.get(`https://netflix-clone-alpha-pearl.vercel.app/watch/${id}`);
         if (response.status >= 200 && response.status < 300) {
           const data = response.data; // Access data with response.data
           setShowData(data[0].video);

@@ -105,7 +105,7 @@ function Users() {
   const handleUserSubmit = async (e) => {
     e.preventDefault();
     try{
-        const sendData = await Axios.post('http://localhost:8000/users', {
+        const sendData = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/users', {
         username:formData.username,
         email:formData.email,
         password: bcrypt.hashSync(formData.password, 8),

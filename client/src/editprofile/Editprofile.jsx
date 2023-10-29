@@ -16,7 +16,7 @@ function Editprofile() {
     const [userdata, getUserData] = useState([])
 
       const fetchData = async () =>
-      { await fetch(`http://localhost:8000/fetcheditprofile/${id}`)
+      { await fetch(`https://netflix-clone-alpha-pearl.vercel.app/fetcheditprofile/${id}`)
         .then((response) => response.json())
         .then((data) => getUserData(data))
         .catch((error) => console.error(error));

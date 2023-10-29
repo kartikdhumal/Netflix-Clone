@@ -19,7 +19,7 @@ UnauthorizeAdmin()
         },[])
   
         const handleDelete = () => {
-          Axios.delete(`http://localhost:8000/deleteshow/${id}`)
+          Axios.delete(`https://netflix-clone-alpha-pearl.vercel.app/deleteshow/${id}`)
             .then((response) => {
               navigate('/shows');
             })

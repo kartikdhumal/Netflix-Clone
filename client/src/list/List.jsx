@@ -12,7 +12,7 @@ function List(props) {
   const listRef = useRef();
 
   const fetchData = () =>
-  { fetch('http://localhost:8000/findshow')
+  { fetch('https://netflix-clone-alpha-pearl.vercel.app/findshow')
     .then((response) => response.json())
     .then((data) => getShowData(data))
     .catch((error) => console.error(error));

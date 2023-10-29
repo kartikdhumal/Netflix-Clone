@@ -35,7 +35,7 @@ function Users() {
     // }, [navigate]);
 
     const fetchData = () =>
-    { fetch('http://localhost:8000/findshow')
+    { fetch('https://netflix-clone-alpha-pearl.vercel.app/findshow')
       .then((response) => response.json())
       .then((data) => getShowData(data))
       .catch((error) => console.error(error));
@@ -45,7 +45,7 @@ function Users() {
       },[])
   
       const handleDelete = (recordId) => {
-        Axios.delete(`http://localhost:8000/shows/deleteshow//${recordId}`)
+        Axios.delete(`https://netflix-clone-alpha-pearl.vercel.app/shows/deleteshow//${recordId}`)
           .then((response) => {
             alert('Show Deleted');
             fetchData();

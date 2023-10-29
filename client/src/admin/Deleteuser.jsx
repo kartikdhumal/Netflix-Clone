@@ -15,7 +15,7 @@ function Deleteuser() {
     //     },[navigate])
        UnauthorizeAdmin()
         const handleDelete = () => {
-          Axios.delete(`http://localhost:8000/deleteuser/${id}`)
+          Axios.delete(`https://netflix-clone-alpha-pearl.vercel.app/deleteuser/${id}`)
             .then((response) => {
               navigate('/users');
             })

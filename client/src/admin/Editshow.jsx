@@ -24,7 +24,7 @@ function Editshow() {
   const [isSeries, setSeries] = useState()
   const [limit, setLimit] = useState()
   const fetchData = async () => {
-    await fetch(`http://localhost:8000/getShowUpdateData/${id}`)
+    await fetch(`https://netflix-clone-alpha-pearl.vercel.app/getShowUpdateData/${id}`)
       .then((response) => response.json())
       .then((data) => getShowData(data))
       .catch((error) => console.error(error));
