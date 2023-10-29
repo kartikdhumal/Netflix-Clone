@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs")
 var cors = require('cors');
 const User = require('./models/userModel');
+const bodyParser = require('body-parser');
 const Show = require('./models/showModel');
 const app = express();
 const corsConfig = {
@@ -15,8 +16,8 @@ const corsConfig = {
 }
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 8000;
 
