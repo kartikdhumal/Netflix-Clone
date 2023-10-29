@@ -27,7 +27,7 @@ function Users() {
   };
 
   const fetchData = () =>
-  { fetch('netflix-kartikdhumal.vercel.app/finduser')
+  { fetch('https://netflix-kartikdhumal.vercel.app/finduser')
     .then((response) => response.json())
     .then((data) => getUserData(data))
     .catch((error) => console.error(error));
@@ -37,7 +37,7 @@ function Users() {
   },[])
 
   const handleDelete = (recordId) => {
-    Axios.delete(`netflix-kartikdhumal.vercel.app/deleteuser/${recordId}`)
+    Axios.delete(`https://netflix-kartikdhumal.vercel.app/deleteuser/${recordId}`)
       .then((response) => {
         fetchData();
       })
@@ -110,6 +110,11 @@ function Users() {
         email:formData.email,
         password: bcrypt.hashSync(formData.password, 8),
         isAdmin :formData.isAdmin
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     if (sendData) {
       alert('User added');
