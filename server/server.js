@@ -44,6 +44,7 @@ app.get('/', (req, res) => {
 
 app.post('/users' , async (req,res) => {
     try{
+      res.setHeader("Access-Control-Allow-Origin" , "https://netflix-kartikdhumal.vercel.app");
       const bodyData = req.body;
       const user = new User(bodyData);
       const userData = await user.save();
