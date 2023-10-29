@@ -17,19 +17,29 @@ app.use(express.json());
 
 const PORT = 8000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/netflixapp').then(()=> {
-    console.log('Connection successfull');
-}).catch((error) => {
-  console.log(`The error is ${error}`);
-});
+
+const mongoURI = 'mongodb+srv://kartikdhumal:guddupandit2023@cluster0.dtpx5rn.mongodb.net/netflixapp?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connection successful');
+  })
+  .catch((error) => {
+    console.log(`The error is ${error}`);
+  });
 
 app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
 })
 
 app.get('/', (req, res) => {
+  try{
   res.send('Hello, World!');
   console.log("I am here");
+  }
+  catch(err){
+    console.log(error);
+  }
 });
 
 app.post('/users' , async (req,res) => {
