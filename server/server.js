@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 
 app.get('/try', (req, res) => {
   try{
-  res.send('TRY');
+  alert('TRY');
   console.log("I am here");
   }
   catch(err){
