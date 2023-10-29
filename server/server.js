@@ -120,7 +120,7 @@ app.get('/getShowUpdateData/:id', async (req, res) => {
   }
 });
 
-app.post('/register' , cors(corsConfig) , async (req,res) => {
+app.post('/register' , async (req,res) => {
   try{
     const email = req.body.email;
     const existingUser = await User.find({ email : email });
@@ -141,7 +141,7 @@ app.post('/register' , cors(corsConfig) , async (req,res) => {
   }
 })
 
-app.post('/login', cors(corsConfig),  async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const { email , password } = req.body;
     if(!email || !password ){
