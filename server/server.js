@@ -15,8 +15,8 @@ const corsConfig = {
 }
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 8000;
 
