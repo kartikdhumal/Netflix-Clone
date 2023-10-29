@@ -146,7 +146,8 @@ app.post('/register' , async (req,res) => {
 
 app.post('/login', async (req, res) => {
   try {
-    const { email , password } = req.body;
+    const email = req.body.email;
+    const password = req.body.password;
     if(!email || !password ){
       return res.send({message:'All fields are required'})
     }
@@ -160,7 +161,7 @@ app.post('/login', async (req, res) => {
     if (!auth) {
       return res.send({message:'Incorrect password or email' }) 
     }
-     res.status(201).send({ message: "User logged in successfully", success: true ,userid , isadmin});
+     res.send({ message: "User logged in successfully", success: true ,userid , isadmin});
   } catch (error) {
     console.error(error);
   }
