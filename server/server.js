@@ -8,12 +8,13 @@ var cors = require('cors');
 const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
-app.use(cors({
-  origin: "https://netflix-kartikdhumal.vercel.app",
-  methods: ["POST" , "GET"],
-  credentials: true 
-}));
-app.use(express.json());
+const corsConfig = {
+  origin: 'https://netflix-kartikdhumal.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
 
 const PORT = 8000;
 
