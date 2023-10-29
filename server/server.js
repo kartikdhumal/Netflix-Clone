@@ -92,11 +92,13 @@ app.delete('/deleteuser/:id' , async (req,res)=>{
 
   app.get('/findshow',async (req,res) => {
     try{  
+      res.header("Access-Control-Allow-Origin", "https://netflix-kartikdhumal.vercel.app");
         const showData = await Show.find().sort({ _id: -1 })
         .exec();
         res.send(showData);
       }
        catch(error){
+        res.header("Access-Control-Allow-Origin", "https://netflix-kartikdhumal.vercel.app");
        console.log(error);
       }
 })
