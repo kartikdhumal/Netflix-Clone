@@ -121,11 +121,10 @@ app.get('/getShowUpdateData/:id', async (req, res) => {
 
 app.post('/register' , async (req,res) => {
   try{
-    const secretkey = '3202tidnapuddug';
     const email = req.body.email;
     const existingUser = await User.find({ email : email });
     if (existingUser.length > 0) {
-      return res.status(400).json({  error :'User already exists' });
+      return res.status(400).send({  error :'User already exists' });
     } 
 
     const bodyData = req.body;
@@ -133,11 +132,11 @@ app.post('/register' , async (req,res) => {
     const userData = await user.save();
     const userid = user._id;
     console.log('Registration successful:', userData);
-    res.json({ userData, userid });
+    res.send({ userData, userid });
   }
   catch(error){
       console.error(error);
-      res.status(500).json({ error: 'Server error : Something went wrong' });
+      res.status(500).send({ error: 'Server error : Something went wrong' });
   }
 })
 
