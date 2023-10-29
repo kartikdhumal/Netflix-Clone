@@ -41,7 +41,11 @@ function Register() {
                         email: email,
                         password: bcrypt.hashSync(password, 8),
                         isAdmin : isAdmin
-                    });
+                    }, {
+                        headers: {
+                          'Content-Type': 'application/json'
+                        }
+                      });
                     if(mydata.data.error)
                     {
                         alert('User already exists');
