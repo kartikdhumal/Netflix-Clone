@@ -46,7 +46,7 @@ function Register() {
                           'Content-Type': 'application/json'
                         }
                       });
-                    if(mydata.data.error)
+                    if(mydata.data.userexists)
                     {
                         alert('User already exists');
                     }

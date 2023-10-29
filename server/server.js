@@ -128,7 +128,7 @@ app.post('/register' , async (req,res) => {
     const email = req.body.email;
     const existingUser = await User.find({ email : email });
     if (existingUser.length > 0) {
-      return res.status(400).send({  error :'User already exists' });
+      return res.send({  userexists : 'User exists' });
     } 
 
     const bodyData = req.body;
