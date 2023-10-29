@@ -32,22 +32,6 @@ app.listen(PORT,() => {
     console.log(`the server is running on http://localhost:${PORT}`);
 })
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://netflix-kartikdhumal.vercel.app");
-  res.header("Access-Control-Allow-Methods", "POST, GET");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
-
-app.options("*", cors());
-
-app.use((err, req, res, next) => {
-  if (err.name === "UnauthorizedError") {
-    res.status(403).send("CORS Error: Not allowed by CORS policy");
-  }
-});
-
-
 app.get('/', (req, res) => {
   try{
   res.send('Hello, World!');
@@ -58,9 +42,18 @@ app.get('/', (req, res) => {
   }
 });
 
+app.get('/try', (req, res) => {
+  try{
+  res.send('TRY');
+  console.log("I am here");
+  }
+  catch(err){
+    console.log(err);
+  }
+});
+
 app.post('/users' , async (req,res) => {
     try{
-      
       const bodyData = req.body;
       const user = new User(bodyData);
       const userData = await user.save();
