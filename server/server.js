@@ -42,15 +42,6 @@ app.get('/', (req, res) => {
   }
 });
 
-app.get('/try', (req, res) => {
-  try{
-  res.send("Working properly");
-  }
-  catch(err){
-    console.log(err);
-  }
-});
-
 app.post('/users' , async (req,res) => {
     try{
       const bodyData = req.body;
