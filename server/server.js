@@ -104,18 +104,18 @@ app.delete('/deleteuser/:id' , async (req,res)=>{
 app.get('/getShowUpdateData/:id', async (req, res) => {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: 'Invalid ID' });
+    return res.status(400).send({ error: 'Invalid ID' });
   }
   try {
     const data = await Show.findById(id);
     if (!data) {
-      return res.status(404).json({ error: 'Data not found' });
+      return res.status(404).send({ error: 'Data not found' });
     }
 
-    res.json(data);
+    res.send(data);
   } catch (err) {
     console.error('Error fetching data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).send({ error: 'Internal server error' });
   }
 });
 
@@ -163,25 +163,25 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.status(200).json({ message: 'User logged out successfully' });
+  res.status(200).send({ message: 'User logged out successfully' });
 });
 
 
 app.get('/fetcheditprofile/:id', async (req, res) => {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: 'Invalid ID' });
+    return res.status(400).send({ error: 'Invalid ID' });
   }
   try {
     const data = await User.findById(id);
     if (!data) {
-      return res.status(404).json({ error: 'Data not found' });
+      return res.status(404).send({ error: 'Data not found' });
     }
 
-    res.json(data);
+    res.send(data);
   } catch (err) {
     console.error('Error fetching data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).send({ error: 'Internal server error' });
   }
 });
 // put editshow/id
@@ -212,20 +212,20 @@ app.put('/editprofile/:id' , async (req,res) => {
   app.get('/countAdminUsers', async (req, res) => {
     try {
       const count = await User.countDocuments({ isAdmin: false });
-      res.json({ count });
+      res.send({ count });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).send({ error: 'Server error' });
     }
   });
 
   app.get('/countShows', async (req, res) => {
     try {
       const count = await Show.countDocuments({ isSeries : true });
-      res.json({ count });
+      res.send({ count });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).send({ error: 'Server error' });
     }
   });
 
@@ -243,10 +243,10 @@ app.put('/editprofile/:id' , async (req,res) => {
   app.get('/countMovies', async (req, res) => {
     try {
       const count = await Show.countDocuments({ isSeries : false });
-      res.json({ count });
+      res.send({ count });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).send({ error: 'Server error' });
     }
   });
   
@@ -254,10 +254,10 @@ app.put('/editprofile/:id' , async (req,res) => {
     try {
       const id = req.params.id;
       const showData = await Show.find({_id : id});
-      res.json(showData);
+      res.send(showData);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).send({ error: 'An error occurred' });
     }
   });
   
@@ -267,19 +267,19 @@ app.put('/editprofile/:id' , async (req,res) => {
       if(type == "movie")
       {
         const showData = await Show.find({ isSeries : false});
-        res.json(showData);
+        res.send(showData);
       }
       else if( type == "series"){
         const showData = await Show.find({ isSeries : true});
-        res.json(showData);
+        res.send(showData);
       }
       else{
         const showData = await Show.find();
-        res.json(showData);
+        res.send(showData);
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).send({ error: 'An error occurred' });
     }
   });
  
@@ -287,13 +287,13 @@ app.put('/editprofile/:id' , async (req,res) => {
     try {
       const genre = req.params.genre;
         const genredata = await Show.find({ genre : genre});
-        res.json(genredata);
+        res.send(genredata);
       // else{
       //   const showData = await Show.find();
-      //   res.json(showData);
+      //   res.send(showData);
       // }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).send({ error: 'An error occurred' });
     }
   });
