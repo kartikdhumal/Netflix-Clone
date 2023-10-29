@@ -2,10 +2,25 @@
   "version": 2,
   "name": "netflix",
   "builds": [
-    { "src": "server.js", "use": "@vercel/node" }
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "server.js" , "methods": ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]}
+    {
+      "src": "/(.*)",
+      "dest": "server.js",
+      "methods": [
+        "GET",
+        "POST",
+        "PATCH",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
   ]
 }
- 
