@@ -22,44 +22,50 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      if (email == "" && password == "") { alert("Please enter your Email or Password"); }
-      else {
-       const response = Axios.post('https://netflix-clone-alpha-pearl.vercel.app/login', {
+      if (email === "" || password === "") {
+        alert("Please enter your Email and Password");
+        return;
+      }
+  
+      const response = await Axios.post(
+        'https://netflix-clone-alpha-pearl.vercel.app/login',
+        {
           email: email,
-          password: password
-        }, {
+          password: password,
+        },
+        {
           headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (response.data.success) {
-          if (response.data.isadmin == true) {
-            alert('Login successful');
-            localStorage.setItem('userid', response.data.userid);
-            setEmail("");
-            setPassword("");
-            navigate('/admin');
-          } else {
-            alert('Login successful');
-            localStorage.setItem('myuserid', response.data.userid);
-            setEmail("");
-            setPassword("");
-            navigate('/homepage');
-          }
-        } else {
-          alert('Something went wrong: ' + response.data.message);
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      if (response.data && response.data.success) {
+        if (response.data.isadmin === true) {
+          alert('Login successful');
+          localStorage.setItem('userid', response.data.userid);
           setEmail("");
           setPassword("");
+          navigate('/admin');
+        } else {
+          alert('Login successful');
+          localStorage.setItem('myuserid', response.data.userid);
+          setEmail("");
+          setPassword("");
+          navigate('/homepage');
         }
+      } else {
+        alert('Something went wrong: ' + response.data.message);
+        setEmail("");
+        setPassword("");
       }
-
     } catch (error) {
       console.error('Try Again!', error);
       setEmail("");
       setPassword("");
     }
-  }
+  };
+  
 
 
 
