@@ -9,7 +9,7 @@ const User = require('./models/userModel');
 const Show = require('./models/showModel');
 const app = express();
 const corsConfig = {
-  origin: 'https://netflix-kartikdhumal.vercel.app',
+  origin: '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
