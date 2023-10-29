@@ -34,14 +34,12 @@ function Login() {
               if(response.data.isadmin == true)
               {
                 alert('Login successful');
-                localStorage.setItem('token', response.data.token);
                 localStorage.setItem('userid', response.data.userid);
                   setEmail("");
                  setPassword("");
                 navigate('/admin');
               }else{
                 alert('Login successful');
-                localStorage.setItem('token', response.data.token);
                 localStorage.setItem('myuserid', response.data.userid);
                   setEmail("");
                   setPassword("");

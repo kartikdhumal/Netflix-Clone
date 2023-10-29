@@ -145,19 +145,19 @@ app.post('/login', async (req, res) => {
   try {
     const { email , password } = req.body;
     if(!email || !password ){
-      return res.json({message:'All fields are required'})
+      return res.send({message:'All fields are required'})
     }
     const user = await User.findOne({ email });
     const userid = user._id;
     const isadmin = user.isAdmin;
     if(!user){
-      return res.json({message:'Incorrect password or email' }) 
+      return res.send({message:'Incorrect password or email' }) 
     }
     const auth = await bcrypt.compare(password,user.password)
     if (!auth) {
-      return res.json({message:'Incorrect password or email' }) 
+      return res.send({message:'Incorrect password or email' }) 
     }
-     res.status(201).json({ message: "User logged in successfully", success: true ,userid , isadmin});
+     res.status(201).send({ message: "User logged in successfully", success: true ,userid , isadmin});
   } catch (error) {
     console.error(error);
   }
