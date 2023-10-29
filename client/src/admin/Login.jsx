@@ -26,7 +26,6 @@ function Login() {
         alert("Please enter your Email and Password");
         return;
       }
-  
       const response = await Axios.post(
         'https://netflix-clone-alpha-pearl.vercel.app/login',
         {
@@ -39,8 +38,15 @@ function Login() {
           },
         }
       );
-  
-      if (response.data && response.data.success) {
+      if(response.data.usernot)
+      {
+        alert('User not exists ');
+      }
+      else if (response.data.passwordnot)
+      {
+        alert('Incorrect Password');
+      }
+      else if (response.data && response.data.success) {
         if (response.data.isadmin === true) {
           alert('Login successful');
           localStorage.setItem('userid', response.data.userid);
@@ -55,7 +61,7 @@ function Login() {
           navigate('/homepage');
         }
       } else {
-        alert('Something went wrong: ' + response.data.message);
+        alert('Something went wrong');
         setEmail("");
         setPassword("");
       }
