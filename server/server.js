@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   console.log("I am here");
   }
   catch(err){
-    console.log(error);
+    console.log(err);
   }
 });
 
