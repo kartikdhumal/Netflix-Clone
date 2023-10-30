@@ -142,7 +142,7 @@
                 height:50px;
               }
               @include minimobile {
-                width:90%;
+                width:70% !important; //change
                 height:40px;
               }
             #email  , #password{
@@ -175,6 +175,7 @@
                   }
                   @include tablet {
                     font-size: 17px;
+                    width: 20% !important;  //change
                   }
             }
         }

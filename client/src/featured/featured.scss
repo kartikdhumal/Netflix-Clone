@@ -32,6 +32,9 @@
     color: white;
     display: flex;
     align-items: center;
+    @include mobile {
+      top:120px !important; // change
+   }
 
     select {
       cursor: pointer;
