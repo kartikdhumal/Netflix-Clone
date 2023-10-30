@@ -46,7 +46,7 @@ function Navbar() {
       elementToToggle.style.display = 'block'; 
     }
   }
- window.onmouseover = () => {  // change
+ window.onmousemove = () => {  // change
    setIsScrolled(true);
  }
 
