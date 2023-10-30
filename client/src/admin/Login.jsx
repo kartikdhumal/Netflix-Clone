@@ -41,10 +41,13 @@ function Login() {
       if(response.data.usernot)
       {
         alert('User not exists ');
+        setEmail("");
+        setPassword("");
       }
       else if (response.data.passwordnot)
       {
         alert('Incorrect Password');
+        setPassword("");
       }
       else if (response.data && response.data.success) {
         if (response.data.isadmin === true) {

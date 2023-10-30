@@ -167,7 +167,11 @@ function Users() {
             limit: limit,
             isSeries: false,
           };
-            const MyData = await Axios.post('http://localhost:8000/shows',dataToUpdate);
+            const MyData = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/shows',dataToUpdate , {
+                        headers: {
+                          'Content-Type': 'application/json'
+                        }
+                      });
             if (MyData) {
              alert('Show added');
              fetchData();
