@@ -45,6 +45,8 @@
             width:80%;
             margin:6px 1px;
             font-size: 15px;
+            background-color: #ffffff !important; // change
+            color:black !important; //change 
             &::placeholder {
               color:black;
             }
