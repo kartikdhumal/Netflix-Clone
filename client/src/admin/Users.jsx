@@ -27,7 +27,7 @@ function Users() {
   };
 
   const fetchData = () =>
-  { fetch('https://netflix-kartikdhumal.vercel.app/finduser')
+  { fetch('https://netflix-clone-alpha-pearl.vercel.app/finduser')
     .then((response) => response.json())
     .then((data) => getUserData(data))
     .catch((error) => console.error(error));
@@ -37,7 +37,7 @@ function Users() {
   },[])
 
   const handleDelete = (recordId) => {
-    Axios.delete(`https://netflix-kartikdhumal.vercel.app/deleteuser/${recordId}`)
+    Axios.delete(`https://netflix-clone-alpha-pearl.vercel.app/deleteuser/${recordId}`)
       .then((response) => {
         fetchData();
       })
