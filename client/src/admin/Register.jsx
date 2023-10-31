@@ -3,6 +3,7 @@ import './register.scss'
 import logo from '../images/netflix.png'
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 const bcrypt = require("bcryptjs")
 
 function Register() {
@@ -11,6 +12,7 @@ function Register() {
     const [clicked , isClicked ] = useState(false);
     const [isAdmin , setIsAdmin ] = useState(false)
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const emailRef = useRef()
     const passwordRef = useRef()
     
@@ -31,9 +33,11 @@ function Register() {
     }
     const handleUserSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
             if(email == "" && password == "")
             {
               alert('Please enter the field');
+              setIsLoading(false);
             }
             else{
                 try{
@@ -49,17 +53,23 @@ function Register() {
                     if(mydata.data.userexists)
                     {
                         alert('User already exists');
+                        setEmail("");
+                        setPassword("");
+                        setIsLoading(false);
                     }
                     if (mydata.data.userid) {
                         localStorage.setItem('myuserid', mydata.data.userid);
                         alert('Registered Successfully');
+                        setIsLoading(false);
                         setEmail("");
                         setPassword("");
                         navigate('/homepage');
                     }
+                    setIsLoading(false);
                 } catch (err) {
                     console.error("Error : "+err);
                     alert('User already exists');
+                    setIsLoading(false);
                     setEmail("");
                     setPassword("");
                 }
@@ -77,11 +87,14 @@ function Register() {
                     </div>
                 </div>
                 <div className="container">
+                { isLoading ? <CircularProgress /> : 
+                <>
                     <h1> Unimited movies , TV shows and more. </h1>
                     <h2> Watch anywhere. Cancel anytime </h2>
                     <p>
                         Ready to watch? Enter your email to create or restart your membership
-                    </p><form method='post' className='form'>{
+                    </p>
+                    <form method='post' className='form'>{
                         !clicked ? (
                             <div className='input'>
                                 <input type='email' name='email' value={email}  id='email' onChange={handleEmail} placeholder='email address'></input>
@@ -93,9 +106,10 @@ function Register() {
                             <button type='submit' onClick={handleUserSubmit} className="registerButton"> Start </button>
 
                         </div>  
-                        )
-                    }
+                        )}
                     </form>
+                    </>
+                }
                 </div>
             </div>
         </div>
