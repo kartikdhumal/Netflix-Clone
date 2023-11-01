@@ -44,7 +44,7 @@ function Watch() {
       <div className="back">
        <ArrowBackOutlinedIcon onClick={handleArrow} />
       </div>
-      { isFetched ? (
+      { !isFetched ? ( // change !isFetched to isFetched
         <video src={showData} className="video" autoPlay controls />
       ) : (
         <video src={netflix} className="video" autoPlay controls ></video>
