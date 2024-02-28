@@ -201,7 +201,6 @@ app.put('/editshow/:id' , async (req,res) => {
      alert(error);
     }
   })
-// put edit profile
 
 app.put('/editprofile/:id' , async (req,res) => {
     try{

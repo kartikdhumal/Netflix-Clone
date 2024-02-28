@@ -42,7 +42,7 @@ function Editprofile() {
         }
         else{
         try {
-            const response = await fetch(`https://netflix-clone-alpha-pearl.vercel.app/editprofile/${id}`, {
+            const response = await fetch(`https://localhost:8000/editprofile/${id}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
