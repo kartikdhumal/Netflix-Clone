@@ -30,7 +30,7 @@ function Editshow() {
       .catch((error) => console.error(error));
   }
   // useEffect(() => {
-  //   if (!localStorage.userid) {
+  //   if (!sessionStorage.userid) {
   //     navigate('/login');
   //   }
   //   fetchData();

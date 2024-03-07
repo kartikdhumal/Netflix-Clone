@@ -8,7 +8,7 @@ function Deleteuser() {
   const {id}= useParams();
     const navigate = useNavigate();
     // useEffect(()=>{
-    //   if (!localStorage.userid) {
+    //   if (!sessionStorage.userid) {
     //     navigate('/login');
     // }
     //     handleDelete();

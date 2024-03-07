@@ -12,11 +12,11 @@ import UnauthorizeAdmin from './UnauthorizeAdmin';
 
 function Navbar() {
   
-  const id = localStorage.userid;
+  const id = sessionStorage.userid;
   const navigate = useNavigate()
   const handleLogin = () =>
   { 
-        localStorage.removeItem("userid");
+        sessionStorage.removeItem("userid");
         alert("Logged out");
         navigate('/login');
   }

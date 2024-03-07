@@ -5,7 +5,7 @@ function AuthRedirect() {
     const navigate = useNavigate();
 
     // useEffect(() => {
-    //     if (!localStorage.token) {
+    //     if (!sessionStorage.token) {
     //         navigate('/login');
     //     }
     // }, [navigate]);

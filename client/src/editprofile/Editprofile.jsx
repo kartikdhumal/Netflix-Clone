@@ -2,91 +2,132 @@ import React, { useEffect, useState } from 'react'
 import './editprofile.scss'
 import { useNavigate, useParams } from 'react-router-dom';
 import avatar from '../images/avatar.png'
-import Cookies from 'js-cookie';
+import Navbar from '../Navbar'
+import AdminNavbar from '../admin/AdminNavbar'
+import CircularProgress from '@mui/material/CircularProgress';
 const bcrypt = require("bcryptjs");
 
 function Editprofile() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  
   let id;
-    if(localStorage.userid){
-      id = localStorage.getItem('userid');
-    }else{
-      id = localStorage.getItem('myuserid');
+  if(sessionStorage.userid){
+    id = sessionStorage.getItem('userid');
+  } else {
+    id = sessionStorage.getItem('myuserid');
+  }
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`https://netflix-clone-alpha-pearl.vercel.app/fetcheditprofile/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setEmail(data.email);
+        setRole(data.role);
+        console.log(data);
+      } else {
+        console.error('Failed to fetch data');
+      }
+    } catch (error) {
+      console.error(error);
     }
-    const [userdata, getUserData] = useState([])
+  };
+  
 
-      const fetchData = async () =>
-      { await fetch(`https://netflix-clone-alpha-pearl.vercel.app/fetcheditprofile/${id}`)
-        .then((response) => response.json())
-        .then((data) => getUserData(data))
-        .catch((error) => console.error(error));
-      }
-      useEffect(()=>{
-        if(!id) {
-          navigate('/login');
-      }
-        fetchData();
-        },[])
+  useEffect(() => {
+    if (!id) {
+      navigate('/login');
+    }
+    fetchData();
+  }, [])
 
-         const handleEmail = (e) => {
-          getUserData({ ...userdata, email: e.target.value });
-         }
-         const handlePassword = (e) => {
-          getUserData({ ...userdata, password: e.target.value });
-         }
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  }
 
-      const onHandleSubmit = async (e) => {
-        e.preventDefault();
-        if( userdata.email == "" && userdata.password == ""){
-           alert("Please enter data");
-        }
-        else{
-        try {
-            const response = await fetch(`https://netflix-clone-alpha-pearl.vercel.app/editprofile/${id}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email:userdata.email,
-                password:bcrypt.hashSync(userdata.password, 8)
-              }),
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  }
 
-            });
-      
-            if (response.ok) {
-              if(localStorage.userid)
-              {
-                alert('Profile updated successfully!');
-                navigate('/admin');
-              }
-              if(localStorage.myuserid)
-              {
-                alert('Profile updated successfully!');
-                navigate('/homepage');  
-              }
-            } 
-            else {
-              alert('Profile update failed');
-            }
-          } catch (error) {
-            console.error(error);
+  const validateEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  const validatePassword = (password) => {
+    return password.length >= 2;
+  }
+
+  const onHandleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      alert('Both email and password are required.');
+    } else if (!validateEmail(email)) {
+      alert('Please enter a valid email address.');
+    } else if (password.length < 2) {
+      alert('Password must be at least 2 characters long.');
+    }else {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://netflix-clone-alpha-pearl.vercel.app/editprofile/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email:email,
+            password: bcrypt.hashSync(password, 8)
+          }),
+        });
+
+        if (response.ok) {
+          if (sessionStorage.userid) {
+            alert('Profile updated successfully!');
+            navigate('/admin');
           }
+          if (sessionStorage.myuserid) {
+            alert('Profile updated successfully!');
+            navigate('/homepage');
+          }
+        } else {
+          alert('Profile update failed');
         }
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
+    }
+  }
+
   return (
     <div className='editprofile'>
+      {
+        sessionStorage.myuserid ? <>
+               <Navbar/>
+        </> : <>
+        <AdminNavbar />     
+        </>
+      }
       <div className="image">
-        <img src={avatar}></img>
+        <img src={avatar} alt="Avatar"></img>
       </div>
-             <h5> Edit profile </h5>
-       <div className="formbox">
+      <h5>Edit profile</h5>
+      <div className="formbox">
+        {loading ? <>
+          <form className='myform'>
+          <CircularProgress />
+          </form>
+        </> : <>
         <form className='myform' method='post'>
-          <input type='email' id='email' value={userdata.email} onChange={handleEmail}  name="email" required placeholder='email'></input>
-          <input type='password' id='password' onChange={handlePassword}  name='password' required placeholder='password'></input>
-         <button type='submit' onClick={onHandleSubmit}> Update profile </button>
+          <input type='email' id='email' value={email || ''} onChange={handleEmail} name="email" required placeholder='email'></input>
+          <input type='password' id='password' value={password || ''} onChange={handlePassword} name='password' required placeholder='password'></input>
+          <button type='submit' onClick={onHandleSubmit}>Update profile</button>
         </form>
-       </div>
+        </>}
+      </div>
     </div>
   )
 }

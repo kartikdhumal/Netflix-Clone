@@ -233,16 +233,22 @@ app.put('/editprofile/:id' , async (req,res) => {
     }
   });
 
-  app.delete('/deleteshow/:id' , async (req,res)=>{
-    try{
-       const id = req.params.id;
-       const userData = await Show.findByIdAndDelete({_id: id});
-       res.send(userData);
-     }
-      catch{
-      console.log(error);
-     }
-  })
+  app.delete('/deleteshow/:id' , async (req, res) => {
+    try {
+        const id = req.params.id;
+        const userData = await Show.findByIdAndDelete({_id: id});
+
+        if (!userData) {
+            return res.status(404).send({ error: 'Show not found' });
+        }
+
+        res.send(userData);
+    } catch (error) {
+        console.error(error);
+        res.status(400).send({ error: 'Invalid request' });
+    }
+});
+
 
   app.get('/countMovies', async (req, res) => {
     try {

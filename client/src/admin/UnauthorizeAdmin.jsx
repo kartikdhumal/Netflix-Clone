@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function UnauthorizeAdmin() {
     const navigate = useNavigate()
     useEffect(() => {
-        const userId = localStorage.userid;
+        const userId = sessionStorage.userid;
         if (!userId) {
           navigate('/login');
         }

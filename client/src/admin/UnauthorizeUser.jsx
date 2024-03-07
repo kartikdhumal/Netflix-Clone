@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function UnauthorizeUser() {
     const navigate = useNavigate()
     useEffect(() => {
-        const myuserId = localStorage.myuserid;
+        const myuserId = sessionStorage.myuserid;
         if (!myuserId) {
           navigate('/login');
         }

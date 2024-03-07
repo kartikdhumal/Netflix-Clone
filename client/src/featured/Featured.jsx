@@ -5,7 +5,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import mirzapurtext from '../images/mirzapurtext.png'
 import nlogo from '../images/nlogo.png'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Featured({type , onTypeChange}) {
     const [moviedata, getShowData] = useState([])
@@ -75,7 +75,7 @@ function Featured({type , onTypeChange}) {
                     <div className="buttons">
                         <button className="play">
                             <PlayArrowIcon />
-                            <span> Play </span>
+                            <NavLink className='playbutton' to={`/watch/${mydata._id}`}> <span> Play </span> </NavLink>   
                         </button>
                         <button className="more">
                             <InfoOutlinedIcon />

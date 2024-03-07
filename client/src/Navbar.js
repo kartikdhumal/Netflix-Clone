@@ -11,9 +11,9 @@ import UnauthorizeUser from './admin/UnauthorizeUser';
 
 function Navbar() {
   const navigate = useNavigate()
-   const id = localStorage.myuserid;
+   const id = sessionStorage.myuserid;
    const handleLogout = () => {
-    localStorage.removeItem('myuserid');
+    sessionStorage.removeItem('myuserid');
     alert('Logged out');
     navigate('/login');
   };

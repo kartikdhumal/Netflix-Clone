@@ -28,6 +28,11 @@ function Register() {
         const value = event.target.value;
         setPassword(value);
     }
+
+    const validateEmail = (email) => {
+        return /\S+@\S+\.\S+/.test(email);
+      }
+
     const handleStart = () => {
         isClicked(true);
     }
@@ -39,6 +44,16 @@ function Register() {
               alert('Please enter the field');
               setIsLoading(false);
             }
+            else if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                setIsLoading(false);
+                isClicked(false);
+              } 
+            else if (password.length < 2) {
+                alert('Password must be at least 2 characters long.');
+                setIsLoading(false);
+                setPassword('');
+              }
             else{
                 try{
                     const mydata = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/register', {
@@ -58,7 +73,7 @@ function Register() {
                         setIsLoading(false);
                     }
                     if (mydata.data.userid) {
-                        localStorage.setItem('myuserid', mydata.data.userid);
+                        sessionStorage.setItem('myuserid', mydata.data.userid);
                         alert('Registered Successfully');
                         setIsLoading(false);
                         setEmail("");

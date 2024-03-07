@@ -24,12 +24,27 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    
     try {
       if (email === "" || password === "") {
         alert("Please enter your Email and Password");
         setIsLoading(false);
         return;
       }
+
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address");
+        setIsLoading(false);
+        return;
+      }
+  
+      if (password.length < 2) {
+        alert("Password must be at least 2 characters long");
+        setIsLoading(false);
+        return;
+      }
+  
       const response = await Axios.post(
         'https://netflix-clone-alpha-pearl.vercel.app/login',
         {
@@ -42,31 +57,24 @@ function Login() {
           },
         }
       );
-      if(response.data.usernot)
-      {
-        alert('User not exists ');
-        setIsLoading(false);
+  
+      if (response.data.usernot) {
+        alert('User not exists');
         setEmail("");
         setPassword("");
-      }
-      else if (response.data.passwordnot)
-      {
+      } else if (response.data.passwordnot) {
         alert('Incorrect Password');
-        setIsLoading(false);
         setPassword("");
-      }
-      else if (response.data && response.data.success) {
+      } else if (response.data && response.data.success) {
         if (response.data.isadmin === true) {
           alert('Login successful');
-          setIsLoading(false);
-          localStorage.setItem('userid', response.data.userid);
+          sessionStorage.setItem('userid', response.data.userid);
           setEmail("");
           setPassword("");
           navigate('/admin');
         } else {
           alert('Login successful');
-          setIsLoading(false);
-          localStorage.setItem('myuserid', response.data.userid);
+          sessionStorage.setItem('myuserid', response.data.userid);
           setEmail("");
           setPassword("");
           navigate('/homepage');
@@ -75,15 +83,16 @@ function Login() {
         alert('Something went wrong');
         setEmail("");
         setPassword("");
-        setIsLoading(false);
       }
-      setIsLoading(false);
     } catch (error) {
       console.error('Try Again!', error);
       setEmail("");
       setPassword("");
+    } finally {
+      setIsLoading(false);
     }
   };
+  
   
 
 

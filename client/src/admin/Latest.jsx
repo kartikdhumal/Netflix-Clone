@@ -14,7 +14,7 @@ function Latest() {
     .catch((error) => console.error(error));
   }
   // useEffect(()=>{
-  //   if (!localStorage.myuserid) {
+  //   if (!sessionStorage.myuserid) {
   //       navigate('/login');
   //     }
   //   fetchData();

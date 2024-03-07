@@ -7,7 +7,7 @@ import UnauthorizeAdmin from './UnauthorizeAdmin';
 function Deleteshow() {
   const navigate = useNavigate()
 //   useEffect(() => {
-//     const b = localStorage.userid;
+//     const b = sessionStorage.userid;
 //     if(!b){
 //       navigate('/login');
 //     }

@@ -11,7 +11,7 @@ function MyList() {
     const navigate = useNavigate();
 
     // useEffect(() => {
-    //     if (!localStorage.myuserid) {
+    //     if (!sessionStorage.myuserid) {
     //         navigate('/login');
     //     }
     // });

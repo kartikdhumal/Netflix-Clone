@@ -1,6 +1,6 @@
-import React, { useState , useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './users.scss'
-import { NavLink, useNavigate  } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import Axios from 'axios';
 import AdminNavbar from './AdminNavbar'
@@ -12,29 +12,38 @@ import {
 const bcrypt = require("bcryptjs")
 
 function Users() {
-  const [userdata , getUserData ] = useState([])
+  const [userdata, getUserData] = useState([])
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userdata.length) : 0;
 
-  const [formData,setFormData] = useState({
-       email : "",
-       password:"",
-       isAdmin : false
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    isAdmin: false
   });
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const fetchData = () =>
-  { fetch('https://netflix-clone-alpha-pearl.vercel.app/finduser')
+  const fetchData = () => {
+    fetch('https://netflix-clone-alpha-pearl.vercel.app/finduser')
     .then((response) => response.json())
-    .then((data) => getUserData(data))
+    .then((data) => {
+      getUserData(data);
+      setFilteredData(data);
+    })
     .catch((error) => console.error(error));
   }
-  useEffect(()=>{
-  fetchData()
-  },[])
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    filterData();
+  }, [searchQuery, userdata]);
 
   const handleDelete = (recordId) => {
     Axios.delete(`https://netflix-clone-alpha-pearl.vercel.app/deleteuser/${recordId}`)
@@ -87,11 +96,26 @@ function Users() {
 `;
 
   useEffect(() => {
-      if (!localStorage.userid) {
-          navigate('/login');
-      }
+    if (!sessionStorage.userid) {
+      navigate('/login');
+    }
   }, [navigate]);
-  
+
+  const filterData = () => {
+    if (!searchQuery) {
+      setFilteredData(userdata);
+    } else {
+      const filtered = userdata.filter((user) => {
+        const isAdminValue = user.isAdmin ? 'admin' : 'user';
+        return (
+          user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          user.createdAt.includes(searchQuery) ||
+          isAdminValue.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      });
+      setFilteredData(filtered);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,78 +128,100 @@ function Users() {
   const form = useRef();
   const handleUserSubmit = async (e) => {
     e.preventDefault();
-    try{
-        const sendData = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/users', {
-        username:formData.username,
-        email:formData.email,
+    try {
+      const sendData = await Axios.post('https://netflix-clone-alpha-pearl.vercel.app/users', {
+        username: formData.username,
+        email: formData.email,
         password: bcrypt.hashSync(formData.password, 8),
-        isAdmin :formData.isAdmin
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
+        isAdmin: formData.isAdmin
       },
-    });
-    if (sendData) {
-      alert('User added');
-      fetchData();
-      document.getElementById('email').value="";
-      document.getElementById('password').value="";
-      document.getElementById('isadmin').value="";
-      setFormData({
-        email: "",
-        password: "",
-        isAdmin: false,
-      })
-    }
-    else{
-      alert("Something went wrong");
-    }
-    }catch(err){
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      if (sendData) {
+        alert('User added');
+        fetchData();
+        document.getElementById('email').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('isadmin').value = "";
+        setFormData({
+          email: "",
+          password: "",
+          isAdmin: false,
+        })
+      }
+      else {
+        alert("Something went wrong");
+      }
+    } catch (err) {
       console.log(err);
-    }  
+    }
   }
-  const heads = ['ID' ,'Email' , 'Role' , 'Delete' ]
+  const heads = ['ID', 'Register Date', 'Email', 'Role', 'Delete']
   return (
     <div className='users'>
-      <AdminNavbar/>
+      <AdminNavbar />
       <div className="form">
-      <h5> Add user  </h5>
-      <form className='formmy' ref={form}>
+        <form className='formmy' ref={form}>
           <input type='email' id='email' value={setFormData.email} name="email" onChange={handleChange} required placeholder='email'></input>
           <input type='password' id='password' value={setFormData.password} name='password' onChange={handleChange} required placeholder='password'></input>
-          <select id='isadmin' value={setFormData.isAdmin} onChange={handleSelect}  required>
-            <option disabled name='isadmin'> Select Role </option> 
+          <select id='isadmin' value={setFormData.isAdmin} onChange={handleSelect} required>
+            <option disabled name='isadmin'> Select Role </option>
             <option> Admin </option>
             <option> User </option>
-            </select>
-         <button onClick={handleUserSubmit}> Add user </button>
+          </select>
+          <button onClick={handleUserSubmit}> Add user </button>
         </form>
       </div>
-        <table aria-label="custom pagination table" id='userdatatable' cellPadding="10px" cellSpacing="10px">
-        <h5> Users </h5>
-          <tr>
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search by Email, date, year, role..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className='searchbox'
+        />
+      </div>
+      <table aria-label="custom pagination table" id='userdatatable' cellPadding="10px" cellSpacing="10px">
+        <tr>
           {
-            heads.map((val)=>{
+            heads.map((val) => {
               return <th> {val} </th>
             })
           }
-            </tr>
-             <tbody>
-             {(rowsPerPage > 0
-            ? userdata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : userdata
-          ).map((row) => (
+        </tr>
+        <tbody>
+          {(rowsPerPage > 0
+            ? filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : filteredData
+          ).map((row, index) => (
             <tr key={row.name}>
-              <td>{row._id}</td>
+              <td>{index + page * rowsPerPage + 1}</td>
+              <td>
+                {new Date(row.createdAt).toLocaleDateString('en-IN', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric'
+                })} - {' '}
+                {
+                new Date(row.createdAt).toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'UTC'
+              })              
+                }
+              </td>
+
               <td style={{ width: 160 }} align="right">
                 {row.email}
               </td>
               <td style={{ width: 160 }} align="right">
-                {row.isAdmin == true ? "Admin" : "User"}
+                {row.isAdmin === true ? "Admin" : "User"}
               </td>
               <td>
-              <DeleteIcon onClick={() => handleDelete(`${row._id}`)} className='deleteicons' />
+                <DeleteIcon onClick={() => handleDelete(`${row._id}`)} className='deleteicons' />
               </td>
             </tr>
           ))}
@@ -184,29 +230,29 @@ function Users() {
               <td colSpan={3} aria-hidden />
             </tr>
           )}
-             </tbody>
+        </tbody>
         <tr>
-            <CustomTablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={4}
-              count={userdata.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              slotProps={{
-                select: {
-                  'aria-label': 'rows per page',
-                },
-                actions: {
-                  showFirstButton: true,
-                  showLastButton: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </tr>
-        </table>
-        
+          <CustomTablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+            colSpan={5}
+            count={userdata.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            slotProps={{
+              select: {
+                'aria-label': 'Users per page',
+              },
+              actions: {
+                showFirstButton: true,
+                showLastButton: true,
+              },
+            }}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </tr>
+      </table>
+
     </div>
   )
 }

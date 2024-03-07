@@ -28,7 +28,7 @@ function MyShows() {
 
   // useEffect(()=>{
   //   fetchData()
-  //   if (!localStorage.myuserid) {
+  //   if (!sessionStorage.myuserid) {
   //     navigate('/login');
   //   }
   //   },[selectedGenre])
