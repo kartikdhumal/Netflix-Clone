@@ -106,16 +106,16 @@ function Login() {
           </div>
         </div>
         <div className="container">
-        {isLoading ? <CircularProgress /> : 
           <form>
             <h1> Sign in </h1>
             <input type='email' id='email' value={email} onChange={handleEmail} placeholder='Email or phone number' />
             <input type='password' value={password} onChange={handlePassword} id='password' placeholder='Password' />
-            <button className="loginButton" onClick={handleLogin}> Sign in </button>
+
+            <button className="loginButton" onClick={handleLogin}> 
+            {isLoading ? <CircularProgress size={24} /> : "Sign in" } </button>
             <span> New to Netflix ? <NavLink to="/register" className="signup"> Sign up now </NavLink></span>
             <span> This page is produced by Google reCAPTCHA to ensure you're not bot <b>Learn more </b></span>
           </form>
-          }
         </div>
       </div>
     </div>

@@ -18,10 +18,21 @@
     @content;
   }
 }
-
+.main{
+  width: 100%;
+  background-color:black;
+  height: 100%;
+  @include mobile {
+    height:100vh;
+  }
+}
 .watch {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+
+    @include mobile {
+      height: auto;
+    }
   
     .back {
       display: flex;

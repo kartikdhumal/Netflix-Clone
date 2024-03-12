@@ -30,7 +30,7 @@
   padding-top: 5% !important;
   height: auto !important;
   color: white;
-  width: auto;
+  width: auto !important;
   padding: 5px;
 
   @include tablet {
@@ -38,20 +38,56 @@
     padding-top: 15% !important;
   }
 
+  .filetext{
+    padding:0 10px 0 10px;
+    width:40%;
+  }
+
+  #posters,#trailers,#fullvideos{
+    background-color: #E50914;
+    width:90% !important;
+    height:1rem;
+  }
+ 
+  .uploadedimage {
+    width:90%;
+    height:auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: auto;
+    object-fit: cover;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d1d5db;
+  }
+  
+
+  #posters::file-selector-button , #trailers::file-selector-button , #fullvideos::file-selector-button{
+    width:100% !important;
+    position:relative !important;
+    cursor: pointer !important;
+    height: auto !important;
+    border:none !important;
+    background-color: #E50914 !important;
+    color:transparent !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
   .posterimage {
     width: 100px !important;
   }
 
-  .form {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
-    padding-top: 90px;
-    padding-left: 40px;
-    padding-right: 40px;
+  .addform {
+    width: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
 
     @include tablet {
       padding-left: 4px;
@@ -79,18 +115,10 @@
 
 
       input {
-        height: 20px;
-        border-radius: 5px;
-        background-color: gray;
-        margin: 4px 0;
-        color: black;
-        box-shadow: none;
-        padding-left: 10px;
-        outline-color: transparent;
-        border: 1px solid #0b0b0b;
-        cursor: default;
-        width: 100%;
+        padding:9px 3px;
+        width:100%;
         margin: 4px 1px;
+        border-radius:5px;
         font-size: 15px;
 
         &::placeholder {
@@ -107,8 +135,8 @@
         margin: 4px 1px;
       }
 
-      button {
-        height: 100px;
+      .addshowbtn{
+        height:35px !important;
         width: 100%;
         border-radius: 5px;
         background-color: red;

@@ -31,7 +31,7 @@ function Watch() {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        setShowData(); // Set a default value if there's an error
+        setShowData();
       }
     };
     console.log(showData);
@@ -40,6 +40,7 @@ function Watch() {
 
 
   return (
+    <div className="main">
     <div className='watch'>
       <div className="back">
        <ArrowBackOutlinedIcon onClick={handleArrow} />
@@ -49,6 +50,7 @@ function Watch() {
       ) : (
         <video src={netflix} className="video" autoPlay controls ></video>
       )} 
+    </div>
     </div>
   )
 }

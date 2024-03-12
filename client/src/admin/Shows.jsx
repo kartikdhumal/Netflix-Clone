@@ -8,13 +8,15 @@ import {
 } from '@mui/base/TablePagination';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import './shows.scss'
+import CircularProgress from '@mui/material/CircularProgress';
 import AdminNavbar from './AdminNavbar'
 import axios from 'axios';
+import { Cloudinary } from "@cloudinary/url-gen";
 
 function Users() {
   const [moviedata, getShowData] = useState([])
   const [trailer, setTrailer] = useState('')
-  const [poster, setPoster] = useState('')
+  const [poster, setPosterImage] = useState('')
   const [video, setVideo] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -23,10 +25,14 @@ function Users() {
   const [duration, setDuration] = useState('')
   const [isSeries, setSeries] = useState(false)
   const [limit, setLimit] = useState('')
+  const [addingShow, setAddingShow] = useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [uploadingTrailer, setUploadingTrailer] = useState(false);
+  const [uploadingPoster, setUploadingPoster] = useState(false);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - moviedata.length) : 0;
   const navigate = useNavigate();
 
@@ -39,7 +45,7 @@ function Users() {
   }, [searchQuery, moviedata]);
 
 
-  
+
   const fetchData = () => {
     fetch('https://netflix-clone-alpha-pearl.vercel.app/findshow')
       .then((response) => response.json())
@@ -60,10 +66,37 @@ function Users() {
       });
   };
 
-  const handleTrailer = (event) => {
-    const value = event.target.value;
-    setTrailer(value);
-    console.log(trailer);
+  const handleTrailer = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingTrailer(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/video/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload video');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        setTrailer(data.secure_url);
+        console.log(data.secure_url);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading video:', error);
+    }
+    finally {
+      setUploadingTrailer(false);
+    }
   };
 
   const filterData = () => {
@@ -85,18 +118,72 @@ function Users() {
       setFilteredData(filtered);
     }
   };
-  
 
-  const handlePoster = (event) => {
-    const value = event.target.value;
-    setPoster(value);
-    console.log(poster);
+
+  const handlePoster = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingPoster(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/image/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        setPosterImage(data.secure_url);
+        console.log(data.secure_url);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+    finally {
+      setUploadingPoster(false);
+    }
   };
 
-  const handleVideo = (event) => {
-    const value = event.target.value;
-    setVideo(value);
-    console.log(video);
+
+  const handleVideo = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingVideo(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/video/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload video');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        setVideo(data.secure_url);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading video:', error);
+    }
+    finally {
+      setUploadingVideo(false);
+    }
   };
 
   const handleTitle = (e) => {
@@ -189,6 +276,7 @@ function Users() {
       return;
     }
     try {
+      setAddingShow(true);
       const dataToUpdate = {
         poster: poster,
         trailer: trailer,
@@ -208,7 +296,7 @@ function Users() {
       });
       if (MyData) {
         alert('Show added');
-        setPoster('');
+        setPosterImage('');
         setTrailer('');
         setVideo('');
         setTitle('');
@@ -226,6 +314,9 @@ function Users() {
       console.log(err);
       alert("Something went wrong. Please try again later.");
     }
+    finally {
+      setAddingShow(false);
+    }
   }
 
 
@@ -235,12 +326,71 @@ function Users() {
   return (
     <div className='shows'>
       <AdminNavbar />
-      <div className="form">
+      <div className="addform">
         <form className='formmy' onSubmit={handleUserSubmit}>
-          <input type='text' onChange={handlePoster} className='posters' name='poster' id='posters' required placeholder='Poster image URL'></input>
-          <input type='text' onChange={handleTrailer} id='trailers' name='trailer' className='trailers' required placeholder='Trailer video URL'></input>
-          <input type='text' onChange={handleVideo} id='fullvideos' name='video' className='fullvideos' required placeholder='full video URL'></input>
-          <input name='trailer' onChange={handleTitle} value={title} type='text' required placeholder='Name of movie/series'></input>
+          <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Poster
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , justifyContent:"start",alignItems:"flex-start", width:"100%"}}>
+          <input
+            type="file"
+            accept="image/*"
+            name='poster'
+            id='posters'
+            onChange={handlePoster}
+          />
+          {poster ? (
+            <img
+              src={poster}
+              alt="Uploaded Poster"
+              className="uploadedimage"
+            />
+          ) : (
+            uploadingPoster && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
+          <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Trailer
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , width:"100%", justifyContent:"start" , alignItems:"self-start"}}>
+          <input
+            type="file"
+            accept="video/*"
+            id='trailers'
+            className='trailers'
+            onChange={handleTrailer}
+          />
+          {trailer ? (
+            <p>Uploaded</p>
+          ) : (
+            uploadingTrailer && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
+          <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Video
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , width:"100%", justifyContent:"start" , alignItems:"self-start"}}>
+          <input
+            type="file"
+            accept="video/*"
+            id='fullvideos'
+            className='fullvideos'
+            name='poster'
+            onChange={handleVideo}
+          />
+          {video ? (
+            <p className='successtext'>Uploaded</p>
+          ) : (
+            uploadingVideo && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
+          <input name='name' id='name' onChange={handleTitle} value={title} type='text' required placeholder='Name of movie/series'></input>
           <input name="description" onChange={handleDesc} value={description} type='input' required placeholder='Description'></input>
           <input name='year' onChange={handleYears} value={years} type='number' min="1999" max={year} required placeholder='Year'></input>
           <input name='genre' onChange={handleGenre} value={genre} type='text' required placeholder='Genre'></input>
@@ -251,7 +401,9 @@ function Users() {
             <option selected> {isSeries == true ? "Yes" : "No"}</option>
             <option> {isSeries == true ? "No" : "Yes"}</option>
           </select>
-          <button type='submit'> Add show </button>
+          <button type='submit' className='addshowbtn'> 
+          {addingShow ? <CircularProgress size={24} /> : "Add show"}
+           </button>
         </form>
       </div>
       <div className="search">

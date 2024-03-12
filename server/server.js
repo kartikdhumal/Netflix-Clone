@@ -115,7 +115,6 @@ app.get('/getShowUpdateData/:id', async (req, res) => {
     if (!data) {
       return res.status(404).send({ error: 'Data not found' });
     }
-
     res.send(data);
   } catch (err) {
     console.error('Error fetching data:', err);

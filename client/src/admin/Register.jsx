@@ -102,7 +102,6 @@ function Register() {
                     </div>
                 </div>
                 <div className="container">
-                { isLoading ? <CircularProgress /> : 
                 <>
                     <h1> Unimited movies , TV shows and more. </h1>
                     <h2> Watch anywhere. Cancel anytime </h2>
@@ -118,13 +117,14 @@ function Register() {
                         ) : (
                             <div className='input'>
                             <input type='password' name='password' value={password} onChange={handlePassword} id='password' placeholder='password'></input>
-                            <button type='submit' onClick={handleUserSubmit} className="registerButton"> Start </button>
+                            <button type='submit' onClick={handleUserSubmit} className="registerButton"> 
+                            { isLoading ? <CircularProgress /> : "start" }
+                            </button>
 
                         </div>  
                         )}
                     </form>
                     </>
-                }
                 </div>
             </div>
         </div>

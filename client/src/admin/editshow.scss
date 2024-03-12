@@ -26,17 +26,65 @@
     @content;
   }
 }
-.shows{
-    background-color: black !important;
-    height:100vw !important;
-    overflow-y: hidden;
-    color:white;
-    width: auto;
-    padding:5px;
+.editshows{
+  background-color: black !important;
+  padding-top:5% !important;
+  height: auto !important;
+  color: white;
+  width: auto !important;
+  padding: 5px;
     @include tablet{
-      height: auto !important;
+      padding-top:15% !important;
     }
+    @include mobile{
+      padding-top:15% !important;
+    }
+    .filetext{
+      padding:0 10px 0 10px;
+      width:40%;
+    }
+  
+    #posters,#trailers,#fullvideos{
+      background-color: #E50914;
+      width:90% !important;
+      height:1rem;
+    }
+   
+    .uploadedimage {
+      width:90%;
+      height:auto;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      margin-right: auto;
+      object-fit: cover;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #d1d5db;
+    }
+    
+   .videoshow{
+    width:100%;
+   }
 
+    #posters::file-selector-button , #trailers::file-selector-button , #fullvideos::file-selector-button{
+      width:100% !important;
+      position:relative !important;
+      cursor: pointer !important;
+      height: auto !important;
+      border:none !important;
+      background-color: #E50914 !important;
+      color:transparent !important;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7px !important;
+      align-items: center !important;
+      margin: 0 !important;
+    }
+    .posterimage {
+      width: 100px !important;
+    }
+  
     .posterimage{
       width:100px !important;
      }  
@@ -50,17 +98,37 @@
         border-radius:5px;
         color: white;
     }
-    .form{
-      width: auto;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      .formmy{
+    .updateform{
+      width: auto !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      flex-direction: column !important;
+  
+      @include tablet {
+        padding-left: 4px;
+        width: 100%;
+        padding-right: 4px;
+        background-color: #0b0b0b;
+      }
+  
+      @include mobile {
+        width: 100%;
+      }
+  
+  
+      .formmy {
         display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px 9px;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        align-items: center;
+        padding: 20px 9px;
+  
+        @include mobile {
+          width: 90%;
+        }
 
 
       input {
@@ -80,7 +148,7 @@
         margin: 4px 1px;
       }
 
-      button{
+      .submitbtn{
           height: 40px;
           width:100%;
           border-radius: 5px;

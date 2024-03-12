@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cloudinary/url-gen": "^1.19.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.12",
@@ -14,6 +15,8 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "buffer": "^6.0.3",
+    "cloudinary": "^2.0.3",
+    "cloudinary-video-player": "^1.10.6",
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",
     "datatables.net-dt": "^1.13.6",

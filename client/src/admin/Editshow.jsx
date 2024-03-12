@@ -6,6 +6,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import AuthRedirect from './AuthRedirect'
 import Axios from 'axios';
 import AdminNavbar from './AdminNavbar'
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate, useParams } from 'react-router-dom';
 import UnauthorizeAdmin from './UnauthorizeAdmin';
 
@@ -14,7 +15,7 @@ function Editshow() {
   const navigate = useNavigate();
   const [moviedata, getShowData] = useState([])
   const [trailer, setTrailer] = useState(null)
-  const [poster, setPoster] = useState(null)
+  const [poster, setPosterImage] = useState(null)
   const [video, setVideo] = useState(null)
   const [title, setTitle] = useState()
   const [description, setDescription] = useState()
@@ -22,100 +23,178 @@ function Editshow() {
   const [genre, setGenre] = useState()
   const [duration, setDuration] = useState()
   const [isSeries, setSeries] = useState()
+  const [uploadingTrailer, setUploadingTrailer] = useState(false);
+  const [uploadingPoster, setUploadingPoster] = useState(false);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [addingShow, setAddingShow] = useState(false);
   const [limit, setLimit] = useState()
+
+  useEffect(()=>{
+  fetchData();
+  },[])
+
   const fetchData = async () => {
     await fetch(`https://netflix-clone-alpha-pearl.vercel.app/getShowUpdateData/${id}`)
       .then((response) => response.json())
       .then((data) => getShowData(data))
       .catch((error) => console.error(error));
   }
-  // useEffect(() => {
-  //   if (!sessionStorage.userid) {
-  //     navigate('/login');
-  //   }
-  //   fetchData();
-  // }, [])
   UnauthorizeAdmin()
-  const handleTrailer = (event) => {
-    const value = event.target.value;
-    const updatedMoviedata = { ...moviedata, trailer: value };
-    getShowData(updatedMoviedata);
-    console.log(moviedata.trailer);
+
+  const handleTrailer = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingTrailer(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/video/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload video');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        console.log(data.secure_url);
+        const updatedMoviedata = { ...moviedata, trailer: data.secure_url };
+        getShowData(updatedMoviedata);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading video:', error);
+    }
+    finally {
+      setUploadingTrailer(false);
+    }
   };
 
-  const handlePoster = (event) => {
-    const value = event.target.value;
-    const updatedMoviedata = { ...moviedata, poster: value };
-    getShowData(updatedMoviedata);
-    console.log(moviedata.poster);
+  const handlePoster = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingPoster(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/image/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        const updatedMoviedata = { ...moviedata, poster: data.secure_url };
+        getShowData(updatedMoviedata);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+    finally {
+      setUploadingPoster(false);
+    }
   };
 
-  const handleVideo = (event) => {
-    const value = event.target.value;
-    const updatedMoviedata = { ...moviedata, video: value };
-    getShowData(updatedMoviedata);
-    console.log(moviedata.video);
+  const handleVideo = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingVideo(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'ml_default');
+
+      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/video/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload video');
+      }
+
+      const data = await response.json();
+      if (data.secure_url) {
+        const updatedMoviedata = { ...moviedata, video: data.secure_url };
+        getShowData(updatedMoviedata);
+        console.log(data.secure_url);
+      } else {
+        console.error('No secure URL found in the response:', data);
+      }
+    } catch (error) {
+      console.error('Error uploading video:', error);
+    }
+    finally {
+      setUploadingVideo(false);
+    }
   };
 
   const handleTitle = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, title: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.title);
   };
   const handleDesc = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, description: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.description);
   };
   const handleDuration = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, duration: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.duration);
   };
   const handleGenre = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, genre: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.genre);
   };
   const handleYears = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, year: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.year);
   };
   const handleLimit = (e) => {
     const value = e.target.value;
     const updatedMoviedata = { ...moviedata, limit: value };
     getShowData(updatedMoviedata);
-    console.log(moviedata.limit);
   };
 
   const handleSelect = (e) => {
     const isseries = e.target.value == "Yes" ? true : false;
     const updatedMoviedata = { ...moviedata, isSeries: isseries };
     getShowData(updatedMoviedata);
-    console.log(moviedata.isSeries);
   }
-  const dataToUpdate = {
-    poster: moviedata.poster,
-    trailer: moviedata.trailer,
-    video: moviedata.video,
-    title: moviedata.title,
-    description: moviedata.description,
-    year: moviedata.year,
-    genre: moviedata.genre,
-    duration: moviedata.duration,
-    limit: moviedata.limit,
-    isSeries: moviedata.isSeries,
-  };
-  console.log(dataToUpdate);
+
   const handleUserSubmit = async (e) => {
     e.preventDefault();
     try {
+      setAddingShow(true);
+      const dataToUpdate = {
+        poster: moviedata.poster,
+        trailer: moviedata.trailer,
+        video: moviedata.video,
+        title: moviedata.title,
+        description: moviedata.description,
+        year: moviedata.year,
+        genre: moviedata.genre,
+        duration: moviedata.duration,
+        limit: moviedata.limit,
+        isSeries: moviedata.isSeries,
+      };
       const MyData = await Axios.put(`http://localhost:8000/editshow/${id}`, dataToUpdate);
       if (MyData) {
         alert('Show updated');
@@ -128,6 +207,9 @@ function Editshow() {
       alert("Something went wrong. Please try again later.");
       navigate('/shows');
     }
+    finally {
+      setAddingShow(false);
+    }
   }
 
   const form = useRef();
@@ -135,13 +217,75 @@ function Editshow() {
   const today = new Date();
   const year = today.getFullYear();
   return (
-    <div className='shows'>
-      <div className="form">
-        <h5> Update show </h5>
-        <form className='formmy' ref={form}>
-          <input type='text' value={moviedata.poster} onChange={handlePoster} className='poster' name='poster' id='poster' required placeholder='Poster image URL'></input>
-          <input type='text' value={moviedata.trailer} onChange={handleTrailer} id='trailer' name='trailer' className='trailer' required placeholder='Trailer video URL'></input>
-          <input type='text' value={moviedata.video} onChange={handleVideo} id='fullvideo' name='video' className='fullvideo' required placeholder='full video URL'></input>
+    <div className='editshows'>
+      <AdminNavbar/>
+      <div className="updateform">
+        <form className='formmy' ref={form}  onSubmit={handleUserSubmit}>
+        <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Poster
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , justifyContent:"start",alignItems:"flex-start", width:"100%"}}>
+          <input
+            type="file"
+            accept="image/*"
+            name='poster'
+            required
+            id='posters'
+            onChange={handlePoster}
+          />
+          {moviedata.poster ? (
+            <img
+              src={moviedata.poster}
+              alt="Uploaded Poster"
+              className="uploadedimage"
+            />
+          ) : (
+            uploadingPoster && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
+          <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Trailer
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , width:"100%", justifyContent:"start" , alignItems:"self-start"}}>
+          <input
+            type="file"
+            accept="video/*"
+            id='trailers'
+            required
+            className='trailers'
+            onChange={handleTrailer}
+          />
+          {moviedata.trailer ? (
+            <video src={moviedata.trailer} className='videoshow' controlsList="nodownload" controls></video>
+          ) : (
+            uploadingTrailer && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
+          <div style={{display:"flex" , width:"100%", justifyContent:"center" , alignItems:"center"}}>
+          <label htmlFor="file-upload" className="filetext">
+            Upload Video
+          </label>
+          <div style={{display:"flex", flexDirection:"column" , width:"100%", justifyContent:"start" , alignItems:"self-start"}}>
+          <input
+            type="file"
+            accept="video/*"
+            required
+            id='fullvideos'
+            className='fullvideos'
+            name='poster'
+            onChange={handleVideo}
+          />
+          {moviedata.video ? (
+             <video src={moviedata.video} controls className='videoshow' controlsList="nodownload"></video>
+          ) : (
+            uploadingVideo && <p>Uploading...</p>
+          )}
+          </div>
+          </div>
           <input name='trailer' value={moviedata.title} onChange={handleTitle} type='text' required placeholder='Name of movie/series'></input>
           <input name="description" value={moviedata.description} onChange={handleDesc} type='input' required placeholder='Description'></input>
           <input name='year' value={moviedata.year} onChange={handleYears} type='number' min="1999" max={year} required placeholder='Year'></input>
@@ -162,7 +306,9 @@ function Editshow() {
               </>
             )}
           </select>
-          <button type='submit' onClick={handleUserSubmit}> Update show </button>
+          <button type='submit' className='submitbtn'> 
+          {addingShow ? <CircularProgress size={24} /> : "Update show"}
+           </button>
         </form>
       </div>
     </div>
