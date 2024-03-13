@@ -29,16 +29,27 @@
       height:auto !important;
   }
 }
-
+.cards{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 .mycards{
-    width: auto;
+    width:75%;
     position: relative !important;
+    display: flex;
+    justify-content:start;
+    row-gap: 20px;
+    column-gap: 20px;
+    align-items: center;
     padding-top:200px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     @include tablet(){
-        justify-content: center;
+        justify-content:center;
+        width: 100%;
     }
 }
 .listItem {

@@ -174,10 +174,11 @@ function Editshow() {
   };
 
   const handleSelect = (e) => {
-    const isseries = e.target.value == "Yes" ? true : false;
-    const updatedMoviedata = { ...moviedata, isSeries: isseries };
+    const isSeriesValue = e.target.value === "true";
+    const updatedMoviedata = { ...moviedata, isSeries: isSeriesValue };
     getShowData(updatedMoviedata);
-  }
+  };
+  
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
@@ -230,7 +231,7 @@ function Editshow() {
             type="file"
             accept="image/*"
             name='poster'
-            required
+            value={moviedata.poster ? '' : undefined}
             id='posters'
             onChange={handlePoster}
           />
@@ -254,7 +255,7 @@ function Editshow() {
             type="file"
             accept="video/*"
             id='trailers'
-            required
+            value={moviedata.poster ? '' : undefined}
             className='trailers'
             onChange={handleTrailer}
           />
@@ -273,7 +274,6 @@ function Editshow() {
           <input
             type="file"
             accept="video/*"
-            required
             id='fullvideos'
             className='fullvideos'
             name='poster'
@@ -292,19 +292,12 @@ function Editshow() {
           <input name='genre' value={moviedata.genre} onChange={handleGenre} type='text' required placeholder='Genre'></input>
           <input name='duration' value={moviedata.duration} onChange={handleDuration} type='number' required step="3600" placeholder='Duration (In minutes)'></input>
           <input name='limit' value={moviedata.limit} onChange={handleLimit} type='number' min="1" required placeholder='Limit'></input>
-          <select name='isSeries' onChange={handleSelect} required>
-            <option disabled>Show type </option>
-            {moviedata.isSeries ? (
-              <>
-                <option value="true" selected>Yes</option>
-                <option value="false">No</option>
-              </>
-            ) : (
-              <>
-                <option value="true">Yes</option>
-                <option value="false" selected>No</option>
-              </>
-            )}
+          <select name='isSeries' onChange={handleSelect} >
+            <option disabled selected>{moviedata.isSeries ? "Series" : "Movie"} </option>
+            <option value="true">Series</option>
+            <option value="false">Movie</option>
+           
+            
           </select>
           <button type='submit' className='submitbtn'> 
           {addingShow ? <CircularProgress size={24} /> : "Update show"}

@@ -13,12 +13,9 @@ function Latest() {
     .then((data) => getShowData(data))
     .catch((error) => console.error(error));
   }
-  // useEffect(()=>{
-  //   if (!sessionStorage.myuserid) {
-  //       navigate('/login');
-  //     }
-  //   fetchData();
-  //   },[])
+  useEffect(()=>{
+   fetchData();
+  },[])
   return (
     <div className='home'>
        <Navbar/>

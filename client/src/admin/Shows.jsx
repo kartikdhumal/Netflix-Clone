@@ -218,10 +218,10 @@ function Users() {
   };
 
   const handleSelect = (e) => {
-    const isseries = e.target.value == "Yes" ? true : false;
-    setSeries(isseries);
-    console.log(isSeries);
-  }
+    const isSeriesValue = e.target.value === "true";
+    setSeries(isSeriesValue);
+  };
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -397,9 +397,9 @@ function Users() {
           <input name='duration' onChange={handleDuration} value={duration} type='number' required step="3600" placeholder='Duration (In minutes)'></input>
           <input name='limit' onChange={handleLimit} value={limit} type='number' min="1" required placeholder='Limit'></input>
           <select name='isSeries' value={isSeries} onChange={handleSelect} required>
-            <option disabled>Is series ?</option>
-            <option selected> {isSeries == true ? "Yes" : "No"}</option>
-            <option> {isSeries == true ? "No" : "Yes"}</option>
+            <option disabled>Show Type</option>
+            <option value="false"> Movie </option>
+            <option value="true"> Series </option>
           </select>
           <button type='submit' className='addshowbtn'> 
           {addingShow ? <CircularProgress size={24} /> : "Add show"}

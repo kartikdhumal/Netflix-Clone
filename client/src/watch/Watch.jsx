@@ -6,6 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import netflix from '../fullvideos/netflix.mp4'
 import UnauthorizeUser from '../admin/UnauthorizeUser';
+import ShakaPlayer from 'shaka-player-react';
+import 'shaka-player/dist/controls.css';
 
 function Watch() {
   const [showData ,setShowData ] = useState("")
@@ -46,7 +48,7 @@ function Watch() {
        <ArrowBackOutlinedIcon onClick={handleArrow} />
       </div>
       { isFetched ? ( // change !isFetched to isFetched
-        <video src={showData} className="video" autoPlay controls />
+        <ShakaPlayer autoPlay src={showData} className="video"/>
       ) : (
         <video src={netflix} className="video" autoPlay controls ></video>
       )} 
