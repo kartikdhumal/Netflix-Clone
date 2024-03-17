@@ -5,22 +5,36 @@ import Featured from '../featured/Featured';
 import Navbar from '../Navbar';
 
 function Latest() {
-    const [moviedata, getShowData] = useState([])
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
   const navigate = useNavigate()
-  const fetchData = () =>
-  { fetch('https://netflix-clone-alpha-pearl.vercel.app/findshow')
-    .then((response) => response.json())
-    .then((data) => getShowData(data))
-    .catch((error) => console.error(error));
+  const [mydata, dropdowndata] = useState([])
+
+  const handleTypeChange = (value) => {
+    setSelectedType(value);
+  };
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const handleGenreChange = (selectedGenre) => {
+    setSelectedGenre(selectedGenre);
+    console.log(selectedGenre);
+  };
+
+  const fetchData = async () => {
+    await fetch(`https://netflix-clone-alpha-pearl.vercel.app/findgenre/${selectedGenre}`)
+      .then((response) => response.json())
+      .then((data) => dropdowndata(data))
+      .catch((error) => console.error(error));
   }
-  useEffect(()=>{
-   fetchData();
-  },[])
+
+
   return (
     <div className='home'>
        <Navbar/>
-       <Featured type="movie" />
-       <List title="Latest" type="bmovies" genre=""/>
+       <Featured onTypeChange={handleGenreChange} type="movie" />
+       <List title="Latest" type="allshows" genre=""/>
     </div>
   )
 }

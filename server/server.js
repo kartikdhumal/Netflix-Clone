@@ -188,7 +188,7 @@ app.get('/fetcheditprofile/:id', async (req, res) => {
     res.status(500).send({ error: 'Internal server error' });
   }
 });
-// put editshow/id
+
 app.put('/editshow/:id' , async (req,res) => {
     try{
       const id = req.params.id;

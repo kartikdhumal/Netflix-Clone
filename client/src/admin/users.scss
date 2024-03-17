@@ -32,7 +32,6 @@
     color:white;
     width: auto;
     height: 100vh !important;
-    padding:5px;
     @include mobile{
       height:100vh;
     }
@@ -80,7 +79,7 @@
       input {
         height: 40px;
         border-radius: 5px;
-        background-color: gray;
+        background-color: rgb(236, 222, 222);
         margin:4px 0;
         color: black;
         box-shadow: none;
@@ -110,6 +109,7 @@
           border-radius: 5px;
           background-color: red;
           color: white;
+          font-weight: bold !important;
           border: none;
           font-size: 18px;
           margin: 4px 1px;

@@ -63,9 +63,9 @@ function Navbar() {
         <div className="sidebar" id='elementToToggle'>
             <ul >
                 <li><MenuIcon className='closeicon' onClick={closeNavbar}/></li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , backgroundColor:"red" , fontSize : "20px" , transition : "0.175s ease-in-out "} : {}}} to="/admin"> Home </NavLink> </li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , backgroundColor:"red" ,fontSize : "20px" , transition : "0.175s ease-in-out "} : {}}} to="/users"> Users </NavLink> </li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , backgroundColor:"red" , fontSize : "20px" , transition : "0.175s ease-in-out "} : {}}} to="/shows"> Shows </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/admin"> Home </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/users"> Users </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/shows"> Shows </NavLink> </li>
             </ul>
          </div>
          <MenuIcon className='menuicon' onClick={openNavbar} id="toggleButton"/>
