@@ -488,7 +488,7 @@ function Users() {
                 type="file"
                 accept="image/*"
                 name='poster'
-                id='posters'
+                id="posters"
                 onChange={handlePoster}
               />
               {poster ? (
@@ -527,6 +527,11 @@ function Users() {
                       className='trailers'
                       onChange={(e) => handleTrailer(seasonIndex, e)}
                     />
+                    {
+                      season.trailer ? <>
+                        <video className='videoshow' controls src={season.trailer}></video>
+                      </> : <></>
+                    }
                   </div>
                   <input
                     type="number"
@@ -540,7 +545,7 @@ function Users() {
                   <div className='removeepisode' onClick={() => handleRemoveSeason(seasonIndex)}>Remove Season {seasonIndex + 1}</div>
 
                   {season.episodes.map((episode, episodeIndex) => (
-                    <div key={episodeIndex} className="episode">
+                    <div key={episodeIndex} className="episodeshows">
                       <p className='episodetext'>SEASON {seasonIndex + 1} - EPISODE {episodeIndex + 1}</p>
 
                       <div className="episodediv">
@@ -551,6 +556,9 @@ function Users() {
                           accept="video/*"
                           onChange={(e) => handleEpisodeVideoChange(seasonIndex, episodeIndex, e)}
                         />
+                        {episode.video && (
+                          <video className='videoshow' controls src={episode.video}></video>
+                        )}
                       </div>
 
                       <input

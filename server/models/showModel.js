@@ -52,15 +52,15 @@ const showSchema = new mongoose.Schema({
     castMembers: [{
         image: {
             type: String,
-            required: true,
+            required:false,
         },
         reelName: {
             type: String,
-            required: true,
+            required:false,
         },
         realName: {
             type: String,
-            required: true,
+            required:false,
         },
     }],
 }, { timestamps: true });

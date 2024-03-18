@@ -29,6 +29,7 @@
   background-color: black !important;
   padding-top: 5% !important;
   height: auto !important;
+  overflow: scroll;
   color: white;
   width: auto !important;
 
@@ -43,7 +44,7 @@
   }
 
   #posters,#trailers,#fullvideos{
-    background-color: #E50914;
+    background-color: #00a8e1;
     width:90% !important;
     height:1rem;
   }
@@ -54,7 +55,7 @@
   align-items: center;
  }
   #episodes{
-    background-color: #E50914;
+    background-color: #00a8e1;
     width:auto !important;
     height:1rem;
   }
@@ -65,7 +66,7 @@
     cursor: pointer !important;
     height: auto !important;
     border:none !important;
-    background-color: #E50914 !important;
+    background-color: #00a8e1 !important;
     color:transparent !important;
     display: flex !important;
     flex-direction: column;
@@ -86,14 +87,17 @@
     border-color: #d1d5db;
   }
   
-
+  .videoshow {
+    width: 100%;
+  }
+  
   #posters::file-selector-button , #trailers::file-selector-button , #fullvideos::file-selector-button{
     width:100% !important;
     position:relative !important;
     cursor: pointer !important;
     height: auto !important;
     border:none !important;
-    background-color: #E50914 !important;
+    background-color: #00a8e1 !important;
     color:transparent !important;
     display: flex !important;
     flex-direction: column;

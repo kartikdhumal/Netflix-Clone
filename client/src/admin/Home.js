@@ -3,16 +3,8 @@ import Navbar from '../Navbar'
 import Featured from '../featured/Featured'
 import List from '../list/List'
 import './home.scss'
-import { useNavigate } from 'react-router-dom'
 
 function Home() {
-
-  const navigate = useNavigate()
-// useEffect(() => {
-//   if (!localStorage.myuserid) {
-//       navigate('/login');
-//   }
-// }, [navigate]);
   return (
     <div className='home'>
        <Navbar />

@@ -265,70 +265,34 @@ function Editshow() {
     setCastMembers(updatedCastMembers);
   };
 
-  const handleVideo = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploadingVideo(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', 'ml_default');
-
-      const response = await fetch('https://api.cloudinary.com/v1_1/ddhjzsml9/video/upload', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to upload video');
-      }
-
-      const data = await response.json();
-      if (data.secure_url) {
-        const updatedMoviedata = { ...moviedata, video: data.secure_url };
-        getShowData(updatedMoviedata);
-        console.log(data.secure_url);
-      } else {
-        console.error('No secure URL found in the response:', data);
-      }
-    } catch (error) {
-      console.error('Error uploading video:', error);
-    }
-    finally {
-      setUploadingVideo(false);
-    }
-  };
-
   const handleTitle = (e) => {
     const value = e.target.value;
-    setTitle(value);
+    const updatedMoviedata = { ...moviedata, title: value };
+    getShowData(updatedMoviedata);
   };
 
   const handleDesc = (e) => {
     const value = e.target.value;
-    setDescription(value);
+    const updatedMoviedata = { ...moviedata, description: value };
+    getShowData(updatedMoviedata);
   };
 
   const handleGenre = (e) => {
     const value = e.target.value;
-    setGenre(value);
-  };
-
-
-  const handleYears = (e) => {
-    const value = e.target.value;
-    const updatedMoviedata = { ...moviedata, year: value };
+    const updatedMoviedata = { ...moviedata, genre: value };
     getShowData(updatedMoviedata);
   };
 
   const handleLimit = (e) => {
     const value = e.target.value;
-    setLimit(value);
+    const updatedMoviedata = { ...moviedata, limit: value };
+    getShowData(updatedMoviedata);
   };
 
   const handleSelect = (e) => {
-    const isSeriesValue = e.target.value === "true";
-    setSeries(isSeriesValue);
+    const value = e.target.value === "true";
+    const updatedMoviedata = { ...moviedata, isSeries: value };
+    getShowData(updatedMoviedata);
   };
 
 
@@ -359,11 +323,11 @@ function Editshow() {
       });
 
       const formData = {
-        title,
-        description,
-        genre,
-        limit,
-        isSeries,
+        title: moviedata.title,
+        description: moviedata.description,
+        genre: moviedata.genre,
+        limit: moviedata.limit,
+        isSeries: moviedata.isSeries,
         poster,
         seasons: seasonsData,
         castMembers: castMembersData

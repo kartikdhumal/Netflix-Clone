@@ -41,17 +41,13 @@ function Navbar() {
       elementToToggle.style.display = 'none'; 
       toggleButton.style.display = 'block';
       middlelogo.style.display = 'block';
-// Show the element
     } else {
       elementToToggle.style.display = 'block'; 
     }
   }
- window.onmousemove = () => {  // change
-   setIsScrolled(true);
- }
 
   return (
-    <div className={isScrolled ? "navbar scrolled" : "navbar"}>
+    <div className={"navbar"}>
        <div className='container'>  
         <div className='left' id="elementToToggle">
         <MenuIcon className='closeicon' onClick={closeNavbar}/>
