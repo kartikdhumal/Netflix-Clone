@@ -125,7 +125,7 @@ function Navbar() {
                   right: 14,
                   width: 10,
                   height: 10,
-                  bgcolor: "#00a8e1",
+                  bgcolor: "#f2f2f2",
                   transform: 'translateY(-50%) rotate(45deg)',
                   zIndex: 0,
                 },
