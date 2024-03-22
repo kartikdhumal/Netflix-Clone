@@ -75,6 +75,7 @@ function Login() {
           navigate('/admin');
         } else {
           alert('Login successful');
+          sessionStorage.setItem('myuserid', response.data.userid);
           sessionStorage.setItem('name', response.data.name);
           setEmail("");
           setPassword("");
