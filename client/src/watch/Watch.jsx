@@ -7,8 +7,6 @@ import netflix from '../fullvideos/netflix.mp4';
 import UnauthorizeUser from '../admin/UnauthorizeUser';
 import ShakaPlayer from 'shaka-player-react';
 import 'shaka-player/dist/controls.css';
-import { concatenate } from '@cloudinary/url-gen/actions/videoEdit';
-import { Cloudinary } from '@cloudinary/url-gen';
 
 function Watch() {
   const [showData, setShowData] = useState('');
@@ -58,30 +56,6 @@ function Watch() {
 
     fetchData();
   }, [id]);
-
-  useEffect(() => {
-    const cloudinary = new Cloudinary({
-      cloud: {
-        cloudName: 'ddhjzsml9'
-      }
-    });
-
-    const concatVideos = async () => {
-      try {
-        const introVideo = cloudinary.video('https://res.cloudinary.com/ddhjzsml9/video/upload/v1710788820/netflix_cq8jwa.mp4').getResource();
-        const episodeVideo = cloudinary.video(showData).getResource();
-        const concatenatedVideo = await cloudinary.video(concatenate(introVideo, episodeVideo)).getResourceUrl();
-
-        setShowData(concatenatedVideo);
-      } catch (error) {
-        console.error('Error concatenating videos:', error);
-      }
-    };
-
-    if (showData && isFetched && selectedEpisode) {
-      concatVideos();
-    }
-  }, [showData, isFetched, selectedEpisode]);
 
   const handleSeasonClick = (season) => {
     setSelectedSeason(season);
