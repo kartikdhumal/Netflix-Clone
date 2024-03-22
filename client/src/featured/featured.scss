@@ -34,7 +34,7 @@
     align-items: center;
 
     @include mobile {
-      top: 110px !important; // change
+      top: 110px !important;
     }
 
     select {
@@ -57,7 +57,7 @@
     object-fit: fill;
 
     @include mobile {
-      object-fit:cover;
+      object-fit: cover;
     }
   }
 
@@ -79,9 +79,10 @@
 
       h1 {
         text-transform: uppercase;
-        width:60%;
+        width: 60%;
+
         @include tablet {
-          font-size:25px;
+          font-size: 25px;
         }
       }
 
@@ -92,7 +93,7 @@
 
     .desc {
       margin-bottom: 20px;
-      margin-top:10px;
+      margin-top: 10px;
       width: 35%;
 
       @include tablet {
