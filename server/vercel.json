@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "netflix",
+  "name": "amazonprime",
   "builds": [
     {
       "src": "server.js",
