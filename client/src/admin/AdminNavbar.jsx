@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './navbar.scss'
-import netflix from '../images/netflix.png'
-import myphoto from '../images/myphoto.jpg'
-import SearchIcon from '@mui/icons-material/Search';
+import netflix from '../images/amazonprime.png'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink , useNavigate} from 'react-router-dom';
 import avatar from '../images/avatar.png'
@@ -63,9 +60,9 @@ function Navbar() {
         <div className="sidebar" id='elementToToggle'>
             <ul >
                 <li><MenuIcon className='closeicon' onClick={closeNavbar}/></li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/admin"> Home </NavLink> </li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/users"> Users </NavLink> </li>
-                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#D3DEF0" , color:"red", transition : "0.175s ease-in-out "} : {}}} to="/shows"> Shows </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#00a8e1" , transition : "0.175s ease-in-out "} : {}}} to="/admin"> Home </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#00a8e1" , transition : "0.175s ease-in-out "} : {}}} to="/users"> Users </NavLink> </li>
+                <li> <NavLink style={({ isActive }) => { return isActive ? { color : "#00a8e1" , transition : "0.175s ease-in-out "} : {}}} to="/shows"> Shows </NavLink> </li>
             </ul>
          </div>
          <MenuIcon className='menuicon' onClick={openNavbar} id="toggleButton"/>

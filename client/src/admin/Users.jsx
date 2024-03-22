@@ -164,7 +164,7 @@ function Users() {
     <div className='users'>
       <AdminNavbar />
       <div className="form">
-        <form className='formmy' ref={form}>
+        <form className='formmy' onSubmit={handleUserSubmit} ref={form}>
           <input type='email' id='email' value={setFormData.email} name="email" onChange={handleChange} required placeholder='email'></input>
           <input type='password' id='password' value={setFormData.password} name='password' onChange={handleChange} required placeholder='password'></input>
           <select id='isadmin' value={setFormData.isAdmin} onChange={handleSelect} required>
@@ -172,7 +172,7 @@ function Users() {
             <option> Admin </option>
             <option> User </option>
           </select>
-          <button onClick={handleUserSubmit}> Add user </button>
+          <button> Add user </button>
         </form>
       </div>
       <div className="search">

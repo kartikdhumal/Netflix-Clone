@@ -1,5 +1,5 @@
 :root {
-  --main-color: #0b0b0b;
+  --main-color: #0f171e;
 }
 
 .link {
@@ -26,7 +26,7 @@
 }
 
 .shows {
-  background-color: black !important;
+  background-color:#0f171e !important;
   padding-top: 5% !important;
   height: auto !important;
   overflow: scroll;
@@ -44,7 +44,7 @@
   }
 
   #posters,#trailers,#fullvideos{
-    background-color: #00a8e1;
+    background-color:#f2f2f2;
     width:90% !important;
     height:1rem;
   }
@@ -55,7 +55,7 @@
   align-items: center;
  }
   #episodes{
-    background-color: #00a8e1;
+    background-color:#f2f2f2;
     width:auto !important;
     height:1rem;
   }
@@ -66,7 +66,7 @@
     cursor: pointer !important;
     height: auto !important;
     border:none !important;
-    background-color: #00a8e1 !important;
+    background-color:#f2f2f2 !important;
     color:transparent !important;
     display: flex !important;
     flex-direction: column;
@@ -97,7 +97,7 @@
     cursor: pointer !important;
     height: auto !important;
     border:none !important;
-    background-color: #00a8e1 !important;
+    background-color:#f2f2f2 !important;
     color:transparent !important;
     display: flex !important;
     flex-direction: column;
@@ -139,7 +139,7 @@
         height:auto !important;
         width:auto;
         border-radius: 5px;
-        background-color: red;
+        background-color:#00a8e1;
         margin:5px 0 5px 0;
         color: white;
         font-weight:900 !important;
@@ -227,7 +227,7 @@
         height:35px !important;
         width: 100%;
         border-radius: 5px;
-        background-color: red;
+        background-color: #00a8e1;
         color: white;
         border: none;
         font-weight: bold !important;

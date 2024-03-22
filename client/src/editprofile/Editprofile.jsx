@@ -13,9 +13,9 @@ function Editprofile() {
   const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   let id;
-  if(sessionStorage.userid){
+  if (sessionStorage.userid) {
     id = sessionStorage.getItem('userid');
   } else {
     id = sessionStorage.getItem('myuserid');
@@ -35,7 +35,7 @@ function Editprofile() {
       console.error(error);
     }
   };
-  
+
 
   useEffect(() => {
     if (!id) {
@@ -68,7 +68,7 @@ function Editprofile() {
       alert('Please enter a valid email address.');
     } else if (password.length < 2) {
       alert('Password must be at least 2 characters long.');
-    }else {
+    } else {
       try {
         setLoading(true);
         const response = await fetch(`https://netflix-clone-alpha-pearl.vercel.app/editprofile/${id}`, {
@@ -77,7 +77,7 @@ function Editprofile() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email:email,
+            email: email,
             password: bcrypt.hashSync(password, 8)
           }),
         });
@@ -106,26 +106,23 @@ function Editprofile() {
     <div className='editprofile'>
       {
         sessionStorage.myuserid ? <>
-               <Navbar/>
+          <Navbar />
         </> : <>
-        <AdminNavbar />     
+          <AdminNavbar />
         </>
       }
-      <div className="image">
-        <img src={avatar} alt="Avatar"></img>
-      </div>
       <h5>Edit profile</h5>
       <div className="formbox">
         {loading ? <>
           <form className='myform'>
-          <CircularProgress />
+            <CircularProgress />
           </form>
         </> : <>
-        <form className='myform' method='post'>
-          <input type='email' id='email' value={email || ''} onChange={handleEmail} name="email" required placeholder='email'></input>
-          <input type='password' id='password' value={password || ''} onChange={handlePassword} name='password' required placeholder='password'></input>
-          <button type='submit' onClick={onHandleSubmit}>Update profile</button>
-        </form>
+          <form className='myform' method='post' onSubmit={onHandleSubmit}>
+            <input type='email'  placeholder='email' id='email' value={email || ''} onChange={handleEmail} name="email" required></input>
+            <input type='password' placeholder="New Password" id='password' value={password || ''} onChange={handlePassword} name='password' required></input>
+            <button type='submit' >Update profile</button>
+          </form>
         </>}
       </div>
     </div>

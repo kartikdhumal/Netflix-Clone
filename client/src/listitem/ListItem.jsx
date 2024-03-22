@@ -9,19 +9,21 @@ import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 function ListItem({ index, data }) {
   const [isHovered, setIsHovered] = useState(false);
   let totalDuration = 0;
-
   if (data.seasons) {
-    data.seasons.forEach((season) => {
-      if (season.episodes) {
-        season.episodes.forEach((episode) => {
-          totalDuration += episode.duration;
-        });
-      }
-    });
+    const lastSeason = data.seasons[data.seasons.length - 1];
+    if (lastSeason && lastSeason.episodes) {
+      lastSeason.episodes.forEach((episode) => {
+        totalDuration += episode.duration;
+      });
+    }
   }
-  
-  const hours = Math.floor(totalDuration / 60);
-  const minutes = totalDuration % 60;
+
+  const hours = Math.floor(totalDuration / 3600);
+  const remainingMinutes = Math.floor((totalDuration % 3600) / 60);
+
+  const durationDisplay = hours > 0 ? `${hours} hours ${remainingMinutes} minutes` : `${remainingMinutes} minutes`;
+
+
 
   const truncateDescription = (description) => {
     const words = description.split(' ');
@@ -45,7 +47,7 @@ function ListItem({ index, data }) {
               <ThumbDownAltOutlinedIcon className='icon' />
             </div>
             <div className="itemInfoTop">
-            <span> {hours} hours {minutes} minutes </span>
+              <span> {durationDisplay} </span>
               <span className='limits'> {data.limit + "+"} </span>
               <span> {data.seasons[data.seasons.length - 1].year} </span>
             </div>

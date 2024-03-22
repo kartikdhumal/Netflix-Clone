@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './login.scss'
-import logo from '../images/netflix.png'
+import logo from '../images/amazonprimeblack.png'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress';
@@ -24,7 +24,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       if (email === "" || password === "") {
         alert("Please enter your Email and Password");
@@ -38,13 +38,13 @@ function Login() {
         setIsLoading(false);
         return;
       }
-  
+
       if (password.length < 2) {
         alert("Password must be at least 2 characters long");
         setIsLoading(false);
         return;
       }
-  
+
       const response = await Axios.post(
         'https://netflix-clone-alpha-pearl.vercel.app/login',
         {
@@ -57,7 +57,7 @@ function Login() {
           },
         }
       );
-  
+
       if (response.data.usernot) {
         alert('User not exists');
         setEmail("");
@@ -69,12 +69,13 @@ function Login() {
         if (response.data.isadmin === true) {
           alert('Login successful');
           sessionStorage.setItem('userid', response.data.userid);
+          sessionStorage.setItem('name', response.data.name);
           setEmail("");
           setPassword("");
           navigate('/admin');
         } else {
           alert('Login successful');
-          sessionStorage.setItem('myuserid', response.data.userid);
+          sessionStorage.setItem('name', response.data.name);
           setEmail("");
           setPassword("");
           navigate('/homepage');
@@ -92,8 +93,8 @@ function Login() {
       setIsLoading(false);
     }
   };
-  
-  
+
+
 
 
 
@@ -106,16 +107,18 @@ function Login() {
           </div>
         </div>
         <div className="container">
-          <form>
-            <h1> Sign in </h1>
-            <input type='email' id='email' value={email} onChange={handleEmail} placeholder='Email or phone number' />
-            <input type='password' value={password} onChange={handlePassword} id='password' placeholder='Password' />
+          <form onSubmit={handleLogin}>
+            <p> Sign in </p>
+            <input type='email' id='email' value={email} onChange={handleEmail} required placeholder='Email' />
+            <input type='password' value={password} onChange={handlePassword} required id='password' placeholder='Password' />
 
-            <button className="loginButton" onClick={handleLogin}> 
-            {isLoading ? <CircularProgress size={24} /> : "Sign in" } </button>
-            <span> New to Netflix ? <NavLink to="/register" className="signup"> Sign up now </NavLink></span>
-            <span> This page is produced by Google reCAPTCHA to ensure you're not bot <b>Learn more </b></span>
+            <button className="loginButton">
+              {isLoading ? <CircularProgress size={24} /> : "Continue"} </button>
+            <span> By continuing, you agree to the Amazon <span>Conditions of Use and Privacy Notice</span> </span>
           </form>
+          <div className='newtoamazon'> ----------------------------------------------- New to Amazon? -----------------------------------------------</div>
+          <NavLink className="createButton" to={'/register'}> <div>
+            Create Your Amazon Account</div> </NavLink>
         </div>
       </div>
     </div>

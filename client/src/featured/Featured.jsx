@@ -79,7 +79,7 @@ function Featured({ type, onTypeChange }) {
           )
         } */}
         {mydata.seasons && mydata.seasons.length > 0 && (
-          <video autoPlay muted className='poster' src={mydata.seasons[mydata.seasons.length - 1].trailer}></video>
+          <video autoPlay muted className='featuredvideo' src={mydata.seasons[mydata.seasons.length - 1].trailer}></video>
         )}
         <div className="info">
           <div className="line">

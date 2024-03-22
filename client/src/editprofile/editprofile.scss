@@ -4,35 +4,34 @@
   }
 }
 
+@mixin tablet {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 .editprofile{
-    background-color:#0b0b0b !important;
-    height:100vh;
+    background-color:#0f171e !important;
+    height:100%;
+    overflow: hidden !important;
     color:white;
     margin: 0;
-    width:100%;
+    width:auto;
     padding:0;
     display: flex;
     flex-direction:column;
-    align-items: center;
-
-  .image{
-    width: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 100px;
-    padding-bottom: 30px;
-
-    img{
-      width:10%;
-    }
-  }
 
     h5{
         color: white;
-        font-size:26px;
+        font-size:30px;
         text-align:center;
+        color: #00a8e1;
+        text-transform: uppercase;
         width:80%; 
+        font-weight: bold;
+        letter-spacing: 1px;
     }
 
     .formbox{
@@ -53,23 +52,19 @@
           input {
             height: 40px;
             border-radius: 5px;
-            background-color: gray;
-            margin:4px 0;
+            margin:5px 0;
+            font-size:16px;
             width:80%;
-            color: white;
             box-shadow: none;
             padding-left: 10px;
+            border-radius: 5px;
             outline-color: transparent;
-            border: 1px solid #0b0b0b;
-    
-            &::placeholder {
-              color: white;
-            }
+
             &:focus {
               outline: none!important;
               box-shadow: none!important;
           }
-          } // change
+          } 
           select{
             width:100%;
             padding: 9px 3px;
@@ -79,9 +74,10 @@
               height: 40px;
               width:80%;
               border-radius: 5px;
-              background-color: red;
+              background-color: #00a8e1;
               color: white;
               border: none;
+              font-weight: bold !important;
               font-size: 18px;
               margin: 6px 1px;
               font-weight: 500;

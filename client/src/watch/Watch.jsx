@@ -113,43 +113,47 @@ function Watch() {
           <video src={netflix} className="video" autoPlay controls ></video>
         )}
       </div>
-      <div className="infobox">
-        <p className='stitle'> {sdata.title} {' - ' + selectedSeason.year} </p>
-        <p className='sdesc'> {sdata.description} </p>
-        <p className='syear'> <div className="sgenre">{sdata.genre}
-        </div> <div className="slimit">
-            {sdata.limit + '+'}
-          </div></p>
-      </div>
+
+      {isFetched && (
+        <div className="infobox">
+          <p className='stitle'> {sdata.title} {' - ' + selectedSeason.year} </p>
+          <p className='sdesc'> {sdata.description} </p>
+          <p className='syear'>
+            <div className="sgenre">{sdata.genre}</div>
+            <div className="slimit">{sdata.limit + '+'}</div>
+          </p>
+        </div>
+      )}
+
+
       {
-        seasons.length > 1 && (
           <>
-          <div className="seasonbox">
-          {seasons.map((season, index) => (
-            <div
-              key={season._id}
-              className={`season ${selectedSeason === season ? 'selected' : ''}`}
-              onClick={() => handleSeasonClick(season)}
-              style={{ backgroundColor: selectedSeason === season ? '#00a8e1' : 'transparent', color: selectedSeason === season ? 'black' : '' }}
-            >
-              {
-                !isMovie ? <> Part {index + 1} </> : <> Season {index + 1} </>
-              }
+            <div className="seasonbox">
+              {seasons.map((season, index) => (
+                <div
+                  key={season._id}
+                  className={`season ${selectedSeason === season ? 'selected' : ''}`}
+                  onClick={() => handleSeasonClick(season)}
+                  style={{ backgroundColor: selectedSeason === season ? '#00a8e1' : 'transparent', color: selectedSeason === season ? 'black' : '' }}
+                >
+                  {
+                    !isMovie ? <> Part {index + 1} </> : <> Season {index + 1} </>
+                  }
+                </div>
+              )
+              )}
             </div>
-          ))}
-        </div>
-  
-        <div className="episodebox">
-          {episodes.map((episode, index) => (
-            <div key={episode._id} className="episode" style={{ backgroundColor: selectedEpisode === episode ? '#333333' : 'transparent' }} onClick={() => handleEpisodeClick(episode)}>
-              <video src={episode.video} muted></video>
-              <p className='description'>{!isMovie ? '' : `E${index + 1}-`} {episode.description}</p>
-              <p className='duration'>{`${String(Math.floor(episode.duration / 60)).padStart(2, '0')}:${String(episode.duration % 60).padStart(2, '0')}`}</p>
+
+            <div className="episodebox">
+              {episodes.map((episode, index) => (
+                <div key={episode._id} className="episode" style={{ backgroundColor: selectedEpisode === episode ? '#333333' : 'transparent' }} onClick={() => handleEpisodeClick(episode)}>
+                  <video src={episode.video} muted></video>
+                  <p className='description'>{!isMovie ? '' : `E${index + 1}-`} {episode.description}</p>
+                  <p className='duration'>{`${String(Math.floor(episode.duration / 60)).padStart(2, '0')}:${String(episode.duration % 60).padStart(2, '0')}`}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        </>
-        )
+          </>
       }
 
       <div className="castbox">

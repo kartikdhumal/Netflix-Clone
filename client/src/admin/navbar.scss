@@ -1,6 +1,6 @@
 
 :root {
-    --main-color: #0b0b0b;
+    --main-color:#0f171e;
   }
   
   .link {
@@ -53,7 +53,7 @@
     z-index: 999;
     list-style-type: none !important;
     top: 0;
-    background-color: linear-gradient(to top,transparent 0% , rgb(0,0,0,0.3) 50%);
+    background-color:#0f171e;
    
     .sidebar{
         display: block;
@@ -74,7 +74,7 @@
         @include tablet {
             flex-direction: column;
             justify-content: center !important;
-            background-color: #0b0b0b !important;
+            background-color: #0f171e !important;
         }
 
         .closeicon
@@ -107,7 +107,7 @@
         }
     }
       &.scrolled{
-        background-color: #0b0b0b;
+        background-color: #0f171e;
       }
     .container{
         padding: 0px 50px;

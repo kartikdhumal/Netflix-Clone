@@ -1,10 +1,5 @@
 :root {
-    --main-color: #0b0b0b;
-  }
-  
-  .link {
-    color: inherit;
-    text-decoration: none;
+    --main-color: #0f171e;
   }
   
   @mixin tablet {
@@ -23,20 +18,21 @@
     }
   }
 
+  
 .navbar {
   width: 100%;
-  color: white;
-  font-size: 17px;
+  font-size:18px;
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #0f171e;
+  
 
   .container {
     padding: 0px 0px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     height: 70px;
 
     @include mobile {
@@ -79,7 +75,7 @@
         left: 0;
         margin-top:auto;
         height:auto;
-        background-color:rgba(0, 0, 0, 0.7);
+        background-color:#0f171e;
         border-radius: 10px;
         padding: 20px;
       }
@@ -91,8 +87,16 @@
         left: 0;
         margin-top:auto;
         height:auto;
-        background-color:rgba(0, 0, 0, 0.7);
+        background-color:#0f171e;
         padding: 20px;
+      }
+      .link {
+        color: inherit;
+        text-decoration: none;
+        color:#f2f2f2;
+        &:hover{
+          color:  #00a8e1;
+        }
       }
       .closeicon{
         display: none;
@@ -119,7 +123,6 @@ display: block;
       span {
         margin-right: 20px;
         text-align: center;
-        font-weight: bold;
         cursor: pointer;
 
         @include tablet {
@@ -138,19 +141,18 @@ display: block;
         }
       }
     }
-
+  
     .right {
       display: flex;
       align-items: center;
-      justify-content:space-between !important;
-      width:15% !important;
+      justify-content:space-evenly !important;
+      width:10% !important;
       margin-right:50px;
       @include mobile {
         width:auto !important;
         display:flex !important;
         justify-content:flex-start !important;
         align-items: center !important;
-        margin-left:-9% !important;
       }
       @include tablet {
         display:flex;
@@ -164,51 +166,13 @@ display: block;
         align-items: center !important;
         margin-left:-15% !important;
       }
-
+      .account{
+        background-color: red !important;
+        border:4px solid red;
+      }
       .icon {
         margin: 0px 15px;
         cursor: pointer;
-      }
-
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 5px;
-        object-fit: cover;
-        cursor: pointer;
-      }
-
-      .profile {
-        .options {
-          display: none;
-          background-color: var(--main-color);
-          border-radius: 5px;
-          @include minimobile{
-            margin-left: -14%;
-            margin-top:6%;
-          }
-          @include mobile{
-            margin-left: -11%;
-            margin-top:0%;
-          }
-        }
-
-        span {
-          padding: 10px;
-          cursor: pointer;
-          color: white !important;
-        }
-        span a{
-          text-decoration: none !important;
-          color: white !important;
-        }
-        &:hover {
-          .options {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-          }
-        }
       }
     }
   }

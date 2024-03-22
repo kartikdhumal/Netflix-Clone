@@ -8,13 +8,6 @@ import './mycards.scss'
 function MyList() {
   const listRef = useRef();
   const [moviedata, getShowData] = useState([])
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //     if (!sessionStorage.myuserid) {
-  //         navigate('/login');
-  //     }
-  // });
   const fetchData = () => {
     fetch('https://netflix-clone-alpha-pearl.vercel.app/findshow')
     .then((response) => response.json())
@@ -34,15 +27,11 @@ function MyList() {
           {moviedata
             .filter((show) => show)
             .map((show, index) => {
-              if (index % 5 === 0) {
                 return (
                   <NavLink to={`/watch/${show._id}`}>
                     <ListItem key={index} data={show} />
                   </NavLink>
                 );
-              } else {
-                return null;
-              }
             })
           }
         </div>

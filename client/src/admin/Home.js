@@ -9,10 +9,9 @@ function Home() {
     <div className='home'>
        <Navbar />
        <Featured type=""/>
-       <List title="Continue to Watch" index="a"/>
-       <List title="Trending Now" index="b"/>
-       <List title="Popular on Netflix" index="c"/>
-       <List title="Most Rated" index="d" />
+       <List title="Crime thriller" index="crime"/>
+       <List title="Romance" index="romance"/>
+       <List title="Sports" index="sports" />
     </div>
   )
 }
